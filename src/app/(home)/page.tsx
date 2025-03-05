@@ -1,4 +1,11 @@
+"use client";
+
+import { useState } from "react";
+import CategoryFilters from "./_components/category-filters";
+
 export default function HomePage() {
+  const [selectedGenreId, setSelectedGenreId] = useState<number | null>(null);
+
   return (
     <div className="min-h-screen bg-background pb-20 text-foreground">
       <main className="container mx-auto px-4 pb-12 pt-24">
@@ -10,6 +17,10 @@ export default function HomePage() {
             Explore the world of cinema with our curated collection of films
           </p>
         </div>
+        <CategoryFilters
+          selectedGenreId={selectedGenreId}
+          onSelectGenre={setSelectedGenreId}
+        />
       </main>
     </div>
   );
