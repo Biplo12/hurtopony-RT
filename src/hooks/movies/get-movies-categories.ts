@@ -4,7 +4,7 @@ import { MOVIE_DB_API_KEY } from "~/constants/env";
 import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type MovieCategory } from "~/interfaces/IMovie";
 
-const getMoviesCategories = async (): Promise<MovieCategory[]> => {
+export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
   try {
     const response = await axios.get<{ genres: MovieCategory[] }>(
       `${MOVIE_DB_BASE_URL}/genre/movie/list`,

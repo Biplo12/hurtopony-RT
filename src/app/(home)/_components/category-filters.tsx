@@ -1,17 +1,12 @@
-import React, { useRef } from "react";
+"use client";
+
+import React, { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useGetMoviesCategories } from "~/hooks/movies/get-movies-categories";
 import { cn } from "~/lib/utils";
 
-interface CategoryFilterProps {
-  selectedGenreId: number | null;
-  onSelectGenre: (genreId: number | null) => void;
-}
-
-const CategoryFilters: React.FC<CategoryFilterProps> = ({
-  selectedGenreId,
-  onSelectGenre,
-}) => {
+const CategoryFilters: React.FC = () => {
+  const [selectedGenreId, setSelectedGenreId] = useState<number | null>(null);
   const { data: moviesCategories, isLoading } = useGetMoviesCategories();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +53,7 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
         {!isLoading && (
           <>
             <button
-              onClick={() => onSelectGenre(null)}
+              onClick={() => setSelectedGenreId(null)}
               className={cn(
                 "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
                 selectedGenreId === null
@@ -72,7 +67,7 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
             {moviesCategories?.map((genre) => (
               <button
                 key={genre.id}
-                onClick={() => onSelectGenre(genre.id)}
+                onClick={() => setSelectedGenreId(genre.id)}
                 className={cn(
                   "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
                   selectedGenreId === genre.id
