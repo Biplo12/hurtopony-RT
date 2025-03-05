@@ -15,14 +15,15 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
   const { data: moviesCategories } = useGetMoviesCategories();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (direction: "LEFT" | "RIGHT") => {
     if (scrollRef.current) {
       const { current } = scrollRef;
-      const scrollAmount = 200;
-      if (direction === "left") {
-        current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      const SCROLL_AMOUNT = 200;
+
+      if (direction === "LEFT") {
+        current.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
       } else {
-        current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        current.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
       }
     }
   };
@@ -31,7 +32,7 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
     <div className="relative my-6 w-full">
       <div className="absolute bottom-0 left-0 top-0 z-10 flex items-center">
         <button
-          onClick={() => scroll("left")}
+          onClick={() => scroll("LEFT")}
           className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-background/80 text-white/70 shadow-md backdrop-blur-sm transition-colors hover:text-white"
           aria-label="Scroll left"
         >
@@ -73,7 +74,7 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
 
       <div className="absolute bottom-0 right-0 top-0 z-10 flex items-center">
         <button
-          onClick={() => scroll("right")}
+          onClick={() => scroll("RIGHT")}
           className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-background/80 text-white/70 shadow-md backdrop-blur-sm transition-colors hover:text-white"
           aria-label="Scroll right"
         >
