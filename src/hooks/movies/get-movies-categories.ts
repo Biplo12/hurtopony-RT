@@ -9,8 +9,8 @@ const getMoviesCategories = async (): Promise<MovieCategory[]> => {
     const response = await axios.get<{ genres: MovieCategory[] }>(
       `${MOVIE_DB_BASE_URL}/genre/movie/list`,
       {
-        headers: {
-          Authorization: `Bearer ${MOVIE_DB_API_KEY}`,
+        params: {
+          api_key: MOVIE_DB_API_KEY,
         },
       },
     );
