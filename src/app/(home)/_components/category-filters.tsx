@@ -12,7 +12,7 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
   selectedGenreId,
   onSelectGenre,
 }) => {
-  const { data: moviesCategories } = useGetMoviesCategories();
+  const { data: moviesCategories, isLoading } = useGetMoviesCategories();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "LEFT" | "RIGHT") => {
@@ -44,32 +44,47 @@ const CategoryFilters: React.FC<CategoryFilterProps> = ({
         ref={scrollRef}
         className="scrollbar-none flex space-x-2 overflow-x-auto px-10 py-2"
       >
-        <button
-          onClick={() => onSelectGenre(null)}
-          className={cn(
-            "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
-            selectedGenreId === null
-              ? "shadow-glow bg-accent font-medium text-accent-foreground"
-              : "bg-secondary/50 text-foreground/70 hover:bg-secondary hover:text-foreground",
-          )}
-        >
-          All Movies
-        </button>
+        {isLoading && (
+          <>
+            {Array.from({ length: 16 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-8 w-24 animate-pulse rounded-full bg-secondary/30"
+              />
+            ))}
+          </>
+        )}
 
-        {moviesCategories?.map((genre) => (
-          <button
-            key={genre.id}
-            onClick={() => onSelectGenre(genre.id)}
-            className={cn(
-              "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
-              selectedGenreId === genre.id
-                ? "shadow-glow bg-accent font-medium text-accent-foreground"
-                : "bg-secondary/50 text-foreground/70 hover:bg-secondary hover:text-foreground",
-            )}
-          >
-            {genre.name}
-          </button>
-        ))}
+        {!isLoading && (
+          <>
+            <button
+              onClick={() => onSelectGenre(null)}
+              className={cn(
+                "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
+                selectedGenreId === null
+                  ? "shadow-glow bg-accent font-medium text-accent-foreground"
+                  : "bg-secondary/50 text-foreground/70 hover:bg-secondary hover:text-foreground",
+              )}
+            >
+              All Movies
+            </button>
+
+            {moviesCategories?.map((genre) => (
+              <button
+                key={genre.id}
+                onClick={() => onSelectGenre(genre.id)}
+                className={cn(
+                  "whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-all",
+                  selectedGenreId === genre.id
+                    ? "shadow-glow bg-accent font-medium text-accent-foreground"
+                    : "bg-secondary/50 text-foreground/70 hover:bg-secondary hover:text-foreground",
+                )}
+              >
+                {genre.name}
+              </button>
+            ))}
+          </>
+        )}
       </div>
 
       <div className="absolute bottom-0 right-0 top-0 z-10 flex items-center">
