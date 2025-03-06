@@ -19,8 +19,10 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <ReactQueryProvider>
-          <NavBar />
-          <Suspense>{children}</Suspense>
+          <Suspense>
+            <NavBar />
+            {children}
+          </Suspense>
         </ReactQueryProvider>
       </body>
     </html>

@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { Movie } from "~/interfaces/IMovie";
+import { type Movie } from "~/interfaces/IMovie";
 import { MOVIE_DB_POSTER_PATH } from "~/constants/";
 
 interface MoviePosterProps {
