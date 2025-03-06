@@ -31,7 +31,7 @@ const MoviesGrid: React.FC = () => {
       <div className="flex flex-col items-center justify-center py-20">
         <h3 className="mb-2 text-xl font-semibold">No movies found</h3>
         <p className="max-w-md text-center text-muted-foreground">
-          Try adjusting your search or filter criteria to find what you're
+          Try adjusting your search or filter criteria to find what you&apos;re
           looking for.
         </p>
       </div>

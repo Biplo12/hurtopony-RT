@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import ReactQueryProvider from "~/providers/react-query-provider";
 import NavBar from "~/components/navbar";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Hurtopony Recruitment Task",
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <NavBar />
-          {children}
+          <Suspense>{children}</Suspense>
         </ReactQueryProvider>
       </body>
     </html>

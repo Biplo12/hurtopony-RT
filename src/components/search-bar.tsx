@@ -8,7 +8,7 @@ import { moviesStore } from "~/store/movies-store";
 const SearchBar: React.FC = () => {
   const searchParams = useSearchParams();
   const { setSearchQuery } = moviesStore((state) => state);
-  const [query, setQuery] = useState(searchParams.get("q") || "");
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -30,7 +30,7 @@ const SearchBar: React.FC = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, setSearchQuery]);
 
   useEffect(() => {
     const searchQuery = searchParams.get("q");
@@ -38,7 +38,7 @@ const SearchBar: React.FC = () => {
       setQuery(searchQuery);
       setSearchQuery(searchQuery);
     }
-  }, []);
+  }, [searchParams, setQuery, setSearchQuery]);
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full">

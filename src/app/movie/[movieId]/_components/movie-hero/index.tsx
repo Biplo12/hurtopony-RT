@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React from "react";
-import { Movie } from "~/interfaces/IMovie";
+import { type Movie } from "~/interfaces/IMovie";
 import MoviePoster from "./partials/movie-poster";
 import MovieInfo from "./partials/movie-info";
 import { MOVIE_DB_BACKDROP_PATH } from "~/constants/";

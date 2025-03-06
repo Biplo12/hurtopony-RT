@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Movie } from "~/interfaces/IMovie";
+import { type Movie } from "~/interfaces/IMovie";
 import MovieCardPoster from "./movie-card-poster";
 import MovieCardContent from "./movie-card-content";
 import { moviesStore } from "~/store/movies-store";

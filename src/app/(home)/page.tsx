@@ -7,17 +7,28 @@ import MoviesGrid from "./_components/movies-grid";
 import { getMovies } from "~/hooks/movies/useGetMovies";
 import { type SortOption } from "~/interfaces/IMovie";
 
-interface HomePageProps {
-  params: { [key: string]: string | string[] | undefined };
-}
+type Params = Promise<{
+  category?: string;
+  q?: string;
+  sortBy?: string;
+  sortDirection?: string;
+}>;
 
-export default async function HomePage({ params }: HomePageProps) {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Params;
+}) {
+  const resolvedParams = await searchParams;
   const queryClient = getQueryClient();
-  const categoryId = params.category ? Number(params.category) : null;
 
-  const searchQuery = params.q?.toString() || "";
-  const sortBy = (params.sortBy as SortOption) || "popularity";
-  const sortDirection = (params.sortDirection as "ASC" | "DESC") || "DESC";
+  const category = resolvedParams?.category?.toString();
+  const categoryId = category ? Number(category) : null;
+
+  const searchQuery = resolvedParams?.q?.toString() ?? "";
+  const sortBy = (resolvedParams?.sortBy as SortOption) ?? "popularity";
+  const sortDirection =
+    (resolvedParams?.sortDirection as "ASC" | "DESC") ?? "DESC";
 
   await queryClient.prefetchQuery({
     queryKey: ["movies-categories"],
@@ -25,7 +36,7 @@ export default async function HomePage({ params }: HomePageProps) {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", categoryId, searchQuery, sortBy, sortDirection],
     queryFn: () =>
       getMovies({
         selectedCategoryId: categoryId,

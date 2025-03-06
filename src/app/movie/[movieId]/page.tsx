@@ -6,8 +6,11 @@ import { ArrowLeft } from "lucide-react";
 import { getMovieDetails } from "~/hooks/movies/useGetMovieDetails";
 import { getQueryClient } from "~/lib/get-query-client";
 
-const MovieDetails = async ({ params }: { params: { movieId: string } }) => {
-  const { movieId } = params;
+type Params = Promise<{ movieId: string }>;
+
+const MovieDetails = async ({ params }: { params: Params }) => {
+  const resolvedParams = await params;
+  const { movieId } = resolvedParams;
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["movie-details", movieId],

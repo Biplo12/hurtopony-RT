@@ -21,7 +21,7 @@ const CategoryFilters: React.FC = () => {
     if (category) {
       setSelectedCategoryId(Number(category));
     }
-  }, []);
+  }, [searchParams, setSelectedCategoryId]);
 
   const handleScrollDirection = (direction: "LEFT" | "RIGHT") => {
     if (scrollRef.current) {

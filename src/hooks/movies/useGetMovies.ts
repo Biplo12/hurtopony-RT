@@ -73,7 +73,7 @@ export const useGetMovies = () => {
   const searchQuery = moviesStore((state) => state.searchQuery);
 
   return useQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", selectedCategoryId, sortOptions, searchQuery],
     queryFn: () => getMovies({ selectedCategoryId, sortOptions, searchQuery }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });

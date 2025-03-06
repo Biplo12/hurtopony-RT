@@ -1,5 +1,5 @@
 import React from "react";
-import { Movie } from "~/interfaces/IMovie";
+import { type Movie } from "~/interfaces/IMovie";
 import { Star, Clock, Calendar } from "lucide-react";
 import { formatRuntime, formatDate } from "~/lib/formatters";
 

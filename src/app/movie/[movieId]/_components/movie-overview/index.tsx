@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Movie } from "~/interfaces/IMovie";
+import { type Movie } from "~/interfaces/IMovie";
 import { Info } from "lucide-react";
 import { truncateDescription } from "~/lib/formatters";
 

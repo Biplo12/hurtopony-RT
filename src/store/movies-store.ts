@@ -59,7 +59,7 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
       set({ moviesCategories }),
     setSelectedCategoryId: (selectedCategoryId: number | null) => {
       updateURLParams({
-        category: selectedCategoryId?.toString() || null,
+        category: selectedCategoryId?.toString() ?? null,
       });
       set({ selectedCategoryId });
     },

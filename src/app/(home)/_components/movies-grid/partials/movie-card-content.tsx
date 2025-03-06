@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MovieCategory } from "~/interfaces/IMovie";
+import { type MovieCategory } from "~/interfaces/IMovie";
 
 interface MovieCardContentProps {
   title: string;
