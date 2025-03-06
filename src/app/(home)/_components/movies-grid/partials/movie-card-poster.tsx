@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Eye } from "lucide-react";
 import { MOVIE_DB_POSTER_PATH } from "~/constants";
-import { getRatingColor } from "~/lib/utils";
 import { cn } from "~/lib/utils";
-
 interface MovieCardPosterProps {
   posterPath: string;
   title: string;
@@ -17,20 +15,21 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
   title,
   rating,
 }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const getRatingColor = (rating: number): string => {
+    if (rating >= 8) return "bg-green-500";
+    if (rating >= 6) return "bg-yellow-500";
+    return "bg-red-500";
+  };
 
   return (
     <div className="relative aspect-[2/3]">
-      {!imageLoaded && <div className="loading-skeleton absolute inset-0" />}
-
       <img
         src={`${MOVIE_DB_POSTER_PATH}${posterPath}`}
         alt={title}
+        loading="eager"
         className={cn(
           "poster-mask h-full w-full object-cover object-center transition-opacity duration-500",
-          imageLoaded ? "opacity-100" : "opacity-0",
         )}
-        onLoad={() => setImageLoaded(true)}
       />
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
