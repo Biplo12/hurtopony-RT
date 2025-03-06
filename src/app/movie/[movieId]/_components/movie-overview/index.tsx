@@ -18,7 +18,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ movie }) => {
         <Info className="text-neon-blue h-5 w-5" />
         <h2 className="text-xl font-semibold">Overview</h2>
       </div>
-      <div className="glass-card rounded-xl p-6">
+      <div className="glass-card rounded-xl px-2">
         <p className="text-base leading-relaxed md:text-lg">
           {showFullDescription
             ? movie.overview

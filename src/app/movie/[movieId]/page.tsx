@@ -45,7 +45,7 @@ const MovieDetails = async ({ params }: { params: { movieId: string } }) => {
     <div className="min-h-screen bg-background text-foreground">
       <Link
         href="/"
-        className="fixed left-6 top-6 z-50 rounded-full border border-white/10 bg-background/30 p-2 backdrop-blur-md transition-colors hover:bg-background/50"
+        className="fixed left-6 top-20 z-50 rounded-full border border-white/10 bg-background/30 p-2 backdrop-blur-md transition-colors hover:bg-background/50"
         aria-label="Back to home"
       >
         <ArrowLeft className="h-5 w-5" />

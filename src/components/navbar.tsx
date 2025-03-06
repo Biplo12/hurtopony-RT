@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Film } from "lucide-react";
 import SearchBar from "./search-bar";
 
+const GITHUB_URL = "https://github.com/Biplo12/hurtopony-RT";
+
 const NavBar: React.FC = () => {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/5 bg-background backdrop-blur-lg">
@@ -20,10 +22,10 @@ const NavBar: React.FC = () => {
 
         <nav className="hidden items-center space-x-1 md:flex">
           <Link
-            href="/"
+            href={GITHUB_URL}
             className="hover:text-neon-blue rounded-md px-3 py-2 text-sm transition-all hover:bg-white/5"
           >
-            Home
+            Github
           </Link>
         </nav>
       </div>
