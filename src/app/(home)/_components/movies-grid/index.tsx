@@ -3,21 +3,22 @@
 import React from "react";
 import { useGetMovies } from "~/hooks/movies/useGetMovies";
 import MovieCard from "./partials/movie-card";
+import { Skeleton } from "~/components/ui/skeleton";
 
 const SKELETON_COUNT = 10;
 
 const MoviesGrid: React.FC = () => {
   const { data: movies, isLoading } = useGetMovies();
 
-  if (isLoading) {
+  if (isLoading || !movies) {
     return (
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
           <div key={index} className="overflow-hidden rounded-xl">
-            <div className="skeleton aspect-[2/3]" />
+            <Skeleton className="skeleton aspect-[2/3]" />
             <div className="space-y-2 p-4">
-              <div className="skeleton h-5 w-3/4" />
-              <div className="skeleton h-4 w-1/2" />
+              <Skeleton className="skeleton h-5 w-3/4" />
+              <Skeleton className="skeleton h-4 w-1/2" />
             </div>
           </div>
         ))}
@@ -25,7 +26,7 @@ const MoviesGrid: React.FC = () => {
     );
   }
 
-  if (movies?.length === 0) {
+  if (movies?.length === 0 && !isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <h3 className="mb-2 text-xl font-semibold">No movies found</h3>
