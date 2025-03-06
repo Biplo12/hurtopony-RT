@@ -47,8 +47,6 @@ export const getMovies = async ({
     params.set("include_adult", "false");
     params.set("api_key", MOVIE_DB_API_KEY);
 
-    console.log(params.toString());
-
     const response = await axios.get<GetMoviesResponse>(
       `${MOVIE_DB_BASE_URL}/discover/movie`,
       {
@@ -72,10 +70,11 @@ export const getMovies = async ({
 export const useGetMovies = () => {
   const selectedCategoryId = moviesStore((state) => state.selectedCategoryId);
   const sortOptions = moviesStore((state) => state.sortOptions);
+  const searchQuery = moviesStore((state) => state.searchQuery);
 
   return useQuery({
-    queryKey: ["movies", selectedCategoryId, sortOptions],
-    queryFn: () => getMovies({ selectedCategoryId, sortOptions }),
+    queryKey: ["movies"],
+    queryFn: () => getMovies({ selectedCategoryId, sortOptions, searchQuery }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
 };

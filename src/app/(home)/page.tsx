@@ -17,6 +17,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const categoryId = searchParams.category
     ? Number(searchParams.category)
     : null;
+
   const searchQuery = searchParams.q?.toString() || "";
   const sortBy = (searchParams.sortBy as SortOption) || "popularity";
   const sortDirection =
@@ -28,7 +29,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies", categoryId, searchQuery, sortBy, sortDirection],
+    queryKey: ["movies"],
     queryFn: () =>
       getMovies({
         selectedCategoryId: categoryId,

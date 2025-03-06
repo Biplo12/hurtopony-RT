@@ -5,7 +5,7 @@ import SearchBar from "./search-bar";
 
 const NavBar: React.FC = () => {
   return (
-    <header className="glass-card fixed left-0 right-0 top-0 z-50 w-full border-b border-white/5 backdrop-blur-lg">
+    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/5 bg-background backdrop-blur-lg">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 md:px-6">
         <Link href="/" className="group flex items-center space-x-2">
           <Film className="text-neon-blue h-5 w-5 animate-pulse-slow" />
