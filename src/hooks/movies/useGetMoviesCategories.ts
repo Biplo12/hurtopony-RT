@@ -5,10 +5,15 @@ import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type MovieCategory } from "~/interfaces/IMovie";
 import { moviesStore } from "~/store/movies-store";
 
+interface GetMoviesCategoriesResponse {
+  genres: MovieCategory[];
+}
+
 export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
   try {
     const { setMoviesCategories } = moviesStore.getState();
-    const response = await axios.get<{ genres: MovieCategory[] }>(
+
+    const response = await axios.get<GetMoviesCategoriesResponse>(
       `${MOVIE_DB_BASE_URL}/genre/movie/list`,
       {
         params: {

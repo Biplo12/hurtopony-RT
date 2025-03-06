@@ -6,8 +6,10 @@ import { dehydrate } from "@tanstack/react-query";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
 import { getMovies } from "~/hooks/movies/useGetMovies";
+import { moviesStore } from "~/store/movies-store";
 
 export default async function HomePage() {
+  const { selectedCategoryId, sortOptions } = moviesStore.getState();
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
@@ -16,7 +18,7 @@ export default async function HomePage() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", selectedCategoryId, sortOptions],
     queryFn: () => getMovies(),
   });
 
