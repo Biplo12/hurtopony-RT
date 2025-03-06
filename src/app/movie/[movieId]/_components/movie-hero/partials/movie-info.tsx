@@ -19,17 +19,22 @@ const MovieInfo: React.FC<MovieInfoProps> = ({ movie }) => {
           <Star className="h-4 w-4 text-yellow-500" />
           <span>{movie.vote_average.toFixed(1)}</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <Clock className="h-4 w-4" />
-          <span>{formatRuntime(movie.runtime)}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Calendar className="h-4 w-4" />
-          <span>{formatDate(movie.release_date)}</span>
-        </div>
+
+        {movie?.runtime > 0 && (
+          <div className="flex items-center gap-1.5">
+            <Clock className="h-4 w-4" />
+            <span>{formatRuntime(movie.runtime)}</span>
+          </div>
+        )}
+
+        {movie?.release_date && (
+          <div className="flex items-center gap-1.5">
+            <Calendar className="h-4 w-4" />
+            <span>{formatDate(movie.release_date)}</span>
+          </div>
+        )}
       </div>
 
-      {/* Genres */}
       <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
         {movie.genres.map((genre) => (
           <span

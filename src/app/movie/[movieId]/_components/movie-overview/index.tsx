@@ -24,6 +24,13 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ movie }) => {
             ? movie.overview
             : truncateDescription(movie.overview, 300)}
         </p>
+
+        {!movie.overview && (
+          <p className="text-base leading-relaxed md:text-lg">
+            No overview available for this movie.
+          </p>
+        )}
+
         {movie.overview.length > 300 && (
           <button
             onClick={() => setShowFullDescription(!showFullDescription)}
