@@ -4,13 +4,15 @@ import React from "react";
 import { useGetMovies } from "~/hooks/movies/useGetMovies";
 import MovieCard from "./partials/movie-card";
 
+const SKELETON_COUNT = 10;
+
 const MoviesGrid: React.FC = () => {
   const { data: movies, isLoading } = useGetMovies();
 
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
           <div key={index} className="overflow-hidden rounded-xl">
             <div className="skeleton aspect-[2/3]" />
             <div className="space-y-2 p-4">
