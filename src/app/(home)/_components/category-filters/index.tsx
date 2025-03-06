@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useGetMoviesCategories } from "~/hooks/movies/get-movies-categories";
 
 import ScrollButton from "./partials/scroll-button";
 import CategorySkeleton from "./partials/category-skeleton";
 import CategoryButtons from "./partials/category-buttons";
+import { useGetMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
 
 const CategoryFilters: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);

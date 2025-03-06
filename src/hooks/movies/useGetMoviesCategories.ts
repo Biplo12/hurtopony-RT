@@ -3,9 +3,11 @@ import axios from "axios";
 import { MOVIE_DB_API_KEY } from "~/constants/env";
 import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type MovieCategory } from "~/interfaces/IMovie";
+import { moviesStore } from "~/store/movies-store";
 
 export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
   try {
+    const { setMoviesCategories } = moviesStore.getState();
     const response = await axios.get<{ genres: MovieCategory[] }>(
       `${MOVIE_DB_BASE_URL}/genre/movie/list`,
       {
@@ -19,6 +21,7 @@ export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
       throw new Error("Failed to fetch movies categories");
     }
 
+    setMoviesCategories(response.data.genres);
     return response.data.genres;
   } catch (error) {
     console.error(error);

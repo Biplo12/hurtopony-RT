@@ -1,9 +1,11 @@
-import { getMoviesCategories } from "~/hooks/movies/get-movies-categories";
+import { getMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
 import CategoryFilters from "./_components/category-filters";
 import { getQueryClient } from "~/lib/get-query-client";
 import { HydrationBoundary } from "@tanstack/react-query";
 import { dehydrate } from "@tanstack/react-query";
 import SortOptions from "./_components/sort-options";
+import MoviesGrid from "./_components/movies-grid";
+import { getMovies } from "~/hooks/movies/useGetMovies";
 
 export default async function HomePage() {
   const queryClient = getQueryClient();
@@ -11,6 +13,11 @@ export default async function HomePage() {
   await queryClient.prefetchQuery({
     queryKey: ["movies-categories"],
     queryFn: () => getMoviesCategories(),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["movies"],
+    queryFn: () => getMovies(),
   });
 
   return (
@@ -27,6 +34,7 @@ export default async function HomePage() {
           </div>
           <CategoryFilters />
           <SortOptions />
+          <MoviesGrid />
         </main>
       </div>
     </HydrationBoundary>
