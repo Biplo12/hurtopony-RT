@@ -23,7 +23,7 @@ export default async function HomePage({
   const queryClient = getQueryClient();
 
   const category = resolvedParams?.category?.toString();
-  const categoryId = category ? Number(category) : null;
+  const selectedCategoryId = category ? Number(category) : null;
 
   const searchQuery = resolvedParams?.q?.toString() ?? "";
   const sortBy = (resolvedParams?.sortBy as SortOption) ?? "popularity";
@@ -36,16 +36,12 @@ export default async function HomePage({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies", categoryId, searchQuery, sortBy, sortDirection],
-    queryFn: () =>
-      getMovies({
-        selectedCategoryId: categoryId,
-        searchQuery,
-        sortOptions: {
-          sortBy,
-          sortDirection,
-        },
-      }),
+    queryKey: ["movies"],
+    queryFn: () => getMovies(),
+  });
+
+  await queryClient.refetchQueries({
+    queryKey: ["movies"],
   });
 
   return (
