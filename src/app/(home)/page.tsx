@@ -40,10 +40,6 @@ export default async function HomePage({
     queryFn: () => getMovies(),
   });
 
-  await queryClient.refetchQueries({
-    queryKey: ["movies"],
-  });
-
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="min-h-screen bg-background pb-20 text-foreground">

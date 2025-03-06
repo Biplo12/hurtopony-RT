@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { MOVIE_DB_API_KEY } from "~/constants/env";
 import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type Movie } from "~/interfaces/IMovie";
 import { moviesStore } from "~/store/movies-store";
@@ -15,8 +16,13 @@ export const getMovies = async (): Promise<Movie[]> => {
   try {
     const { setMovies } = moviesStore.getState();
 
+    const params = new URLSearchParams();
+
+    params.set("api_key", MOVIE_DB_API_KEY);
+
     const response = await axios.get<GetMoviesResponse>(
       `${MOVIE_DB_BASE_URL}/discover/movie`,
+      { params },
     );
 
     if (response.status !== 200) {
