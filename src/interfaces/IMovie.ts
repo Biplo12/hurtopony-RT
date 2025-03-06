@@ -10,3 +10,9 @@ export type Movie = {
   poster_path: string;
   release_date: string;
 };
+
+export type SortOption =
+  | "popularity"
+  | "vote_average"
+  | "release_date"
+  | "title";

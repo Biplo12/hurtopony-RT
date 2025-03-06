@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useGetMoviesCategories } from "~/hooks/movies/get-movies-categories";
 
 import ScrollButton from "./partials/scroll-button";
@@ -9,7 +9,6 @@ import CategoryButtons from "./partials/category-buttons";
 
 const CategoryFilters: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [selectedGenreId, setSelectedGenreId] = useState<number | null>(null);
 
   const { data: moviesCategories, isLoading } = useGetMoviesCategories();
 
@@ -37,15 +36,13 @@ const CategoryFilters: React.FC = () => {
 
       <div
         ref={scrollRef}
-        className="scrollbar-none flex space-x-2 overflow-x-auto px-10 py-2"
+        className="scrollbar-none flex space-x-2 overflow-x-auto px-10 py-3"
       >
         {isLoading && <CategorySkeleton />}
 
         {!isLoading && (
           <CategoryButtons
             categories={moviesCategories}
-            selectedGenreId={selectedGenreId}
-            setSelectedGenreId={setSelectedGenreId}
             isLoading={isLoading}
           />
         )}

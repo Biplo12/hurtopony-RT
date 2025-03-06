@@ -3,6 +3,7 @@ import CategoryFilters from "./_components/category-filters";
 import { getQueryClient } from "~/lib/get-query-client";
 import { HydrationBoundary } from "@tanstack/react-query";
 import { dehydrate } from "@tanstack/react-query";
+import SortOptions from "./_components/sort-options";
 
 export default async function HomePage() {
   const queryClient = getQueryClient();
@@ -25,6 +26,7 @@ export default async function HomePage() {
             </p>
           </div>
           <CategoryFilters />
+          <SortOptions />
         </main>
       </div>
     </HydrationBoundary>
