@@ -13,8 +13,8 @@ interface GetMoviesResponse {
 }
 
 interface GetMoviesParams {
-  selectedCategoryId: number | null;
-  sortOptions: {
+  selectedCategoryId?: number | null;
+  sortOptions?: {
     sortBy: SortOption;
     sortDirection: "ASC" | "DESC";
   } | null;
@@ -40,6 +40,8 @@ export const getMovies = async ({
 
     params.set("include_adult", "false");
     params.set("api_key", MOVIE_DB_API_KEY);
+
+    console.log(params.toString());
 
     const response = await axios.get<GetMoviesResponse>(
       `${MOVIE_DB_BASE_URL}/discover/movie`,

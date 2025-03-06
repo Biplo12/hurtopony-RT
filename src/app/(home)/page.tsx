@@ -17,7 +17,11 @@ export default async function HomePage() {
 
   await queryClient.prefetchQuery({
     queryKey: ["movies"],
-    queryFn: () => getMovies({ selectedCategoryId: null, sortOptions: null }),
+    queryFn: () =>
+      getMovies({
+        selectedCategoryId: null,
+        sortOptions: null,
+      }),
   });
 
   return (
