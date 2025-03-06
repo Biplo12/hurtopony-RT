@@ -18,6 +18,7 @@ export type Movie = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  genres: MovieCategory[];
 };
 
 export type SortOption =
