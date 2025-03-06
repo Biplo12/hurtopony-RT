@@ -1,17 +1,15 @@
 /** @type {import("eslint").Linter.Config} */
-import pluginQuery from "@tanstack/eslint-plugin-query";
 
 const config = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", pluginQuery],
+  plugins: ["@typescript-eslint"],
   extends: [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
-    "plugin:@tanstack/query/recommended",
   ],
   rules: {
     "@tanstack/query/exhaustive-deps": "error",

@@ -8,20 +8,16 @@ import { getMovies } from "~/hooks/movies/useGetMovies";
 import { type SortOption } from "~/interfaces/IMovie";
 
 interface HomePageProps {
-  params: Record<string, string>;
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { [key: string]: string | string[] | undefined };
 }
 
-export default async function HomePage({ searchParams }: HomePageProps) {
+export default async function HomePage({ params }: HomePageProps) {
   const queryClient = getQueryClient();
-  const categoryId = searchParams.category
-    ? Number(searchParams.category)
-    : null;
+  const categoryId = params.category ? Number(params.category) : null;
 
-  const searchQuery = searchParams.q?.toString() || "";
-  const sortBy = (searchParams.sortBy as SortOption) || "popularity";
-  const sortDirection =
-    (searchParams.sortDirection as "ASC" | "DESC") || "DESC";
+  const searchQuery = params.q?.toString() || "";
+  const sortBy = (params.sortBy as SortOption) || "popularity";
+  const sortDirection = (params.sortDirection as "ASC" | "DESC") || "DESC";
 
   await queryClient.prefetchQuery({
     queryKey: ["movies-categories"],
