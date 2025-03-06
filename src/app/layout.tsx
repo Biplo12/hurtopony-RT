@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import ReactQueryProvider from "~/providers/react-query-provider";
+import NavBar from "~/components/navbar";
 
 export const metadata: Metadata = {
   title: "Hurtopony Recruitment Task",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <NavBar />
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );

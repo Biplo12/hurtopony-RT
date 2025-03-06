@@ -14,6 +14,7 @@ interface GetMoviesResponse {
 
 interface GetMoviesParams {
   selectedCategoryId?: number | null;
+  searchQuery?: string;
   sortOptions?: {
     sortBy: SortOption;
     sortDirection: "ASC" | "DESC";
@@ -22,6 +23,7 @@ interface GetMoviesParams {
 
 export const getMovies = async ({
   selectedCategoryId,
+  searchQuery,
   sortOptions,
 }: GetMoviesParams): Promise<Movie[]> => {
   try {
@@ -31,6 +33,10 @@ export const getMovies = async ({
 
     if (selectedCategoryId) {
       params.set("with_genres", selectedCategoryId.toString());
+    }
+
+    if (searchQuery) {
+      params.set("query", searchQuery);
     }
 
     if (sortOptions) {

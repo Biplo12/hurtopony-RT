@@ -6,9 +6,21 @@ import { dehydrate } from "@tanstack/react-query";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
 import { getMovies } from "~/hooks/movies/useGetMovies";
+import { type SortOption } from "~/interfaces/IMovie";
 
-export default async function HomePage() {
+interface HomePageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
   const queryClient = getQueryClient();
+  const categoryId = searchParams.category
+    ? Number(searchParams.category)
+    : null;
+  const searchQuery = searchParams.q?.toString() || "";
+  const sortBy = (searchParams.sortBy as SortOption) || "popularity";
+  const sortDirection =
+    (searchParams.sortDirection as "ASC" | "DESC") || "DESC";
 
   await queryClient.prefetchQuery({
     queryKey: ["movies-categories"],
@@ -16,11 +28,15 @@ export default async function HomePage() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", categoryId, searchQuery, sortBy, sortDirection],
     queryFn: () =>
       getMovies({
-        selectedCategoryId: null,
-        sortOptions: null,
+        selectedCategoryId: categoryId,
+        searchQuery,
+        sortOptions: {
+          sortBy,
+          sortDirection,
+        },
       }),
   });
 

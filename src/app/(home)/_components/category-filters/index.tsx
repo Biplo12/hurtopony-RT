@@ -1,16 +1,27 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 import ScrollButton from "./partials/scroll-button";
 import CategorySkeleton from "./partials/category-skeleton";
 import CategoryButtons from "./partials/category-buttons";
 import { useGetMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
+import { moviesStore } from "~/store/movies-store";
 
 const CategoryFilters: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const { setSelectedCategoryId } = moviesStore((state) => state);
 
   const { data: moviesCategories, isLoading } = useGetMoviesCategories();
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setSelectedCategoryId(Number(category));
+    }
+  }, []);
 
   const handleScrollDirection = (direction: "LEFT" | "RIGHT") => {
     if (scrollRef.current) {
