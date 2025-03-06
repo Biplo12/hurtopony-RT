@@ -1,14 +1,14 @@
 import { getMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
 import CategoryFilters from "./_components/category-filters";
 import { getQueryClient } from "~/lib/get-query-client";
-import { HydrationBoundary } from "@tanstack/react-query";
-import { dehydrate } from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
 import { getMovies } from "~/hooks/movies/useGetMovies";
 import { type SortOption } from "~/interfaces/IMovie";
 
 interface HomePageProps {
+  params: Record<string, string>;
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
