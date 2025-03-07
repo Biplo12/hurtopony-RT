@@ -21,7 +21,8 @@ const CategoryFilters: React.FC = () => {
     if (category) {
       setSelectedCategoryId(Number(category));
     }
-  }, [searchParams, setSelectedCategoryId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleScrollDirection = (direction: "LEFT" | "RIGHT") => {
     if (scrollRef.current) {

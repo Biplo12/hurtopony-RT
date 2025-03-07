@@ -19,7 +19,8 @@ const SortOptions: React.FC = () => {
     if (sortBy && sortDirection) {
       setSortOptions({ sortBy, sortDirection });
     }
-  }, [searchParams, setSortOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mb-6 flex flex-wrap items-center gap-2">

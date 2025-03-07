@@ -12,11 +12,16 @@ const MoviesGrid: React.FC = () => {
   const params = useSearchParams();
 
   const category = params.get("category");
+  const query = params.get("q") ?? "";
+  const sortBy = (params.get("sortBy") as SortOption) ?? "popularity";
+  const sortDirection =
+    (params.get("sortDirection") as "ASC" | "DESC") ?? "DESC";
+
   const { data: movies, isLoading } = useGetMovies({
     categoryId: category ? Number(category) : null,
-    query: params.get("q") ?? "",
-    sortBy: (params.get("sortBy") as SortOption) ?? "popularity",
-    sortDirection: (params.get("sortDirection") as "ASC" | "DESC") ?? "DESC",
+    query,
+    sortBy,
+    sortDirection,
   });
 
   if (isLoading || !movies) {

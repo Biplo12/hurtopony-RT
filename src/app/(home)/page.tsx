@@ -1,8 +1,13 @@
+"use client";
+
 import CategoryFilters from "./_components/category-filters";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
+import { useURLSynchronizer } from "~/hooks/useURLSynchronizer";
 
 export default function HomePage() {
+  useURLSynchronizer();
+
   return (
     <div className="min-h-screen bg-background pb-20 text-foreground">
       <main className="container mx-auto px-4 pb-12 pt-24">
