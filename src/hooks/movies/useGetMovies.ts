@@ -12,18 +12,50 @@ interface GetMoviesResponse {
   total_results: number;
 }
 
-export const getMovies = async (): Promise<Movie[]> => {
+export type SortOption =
+  | "popularity"
+  | "release_date"
+  | "vote_average"
+  | "title";
+
+interface GetMoviesParams {
+  categoryId: number | null;
+  query: string;
+  sortBy: SortOption;
+  sortDirection: "ASC" | "DESC";
+}
+
+export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
   try {
     const { setMovies } = moviesStore.getState();
 
-    const params = new URLSearchParams();
+    const urlParams = new URLSearchParams();
 
-    params.set("api_key", MOVIE_DB_API_KEY);
+    urlParams.set("api_key", MOVIE_DB_API_KEY);
 
-    const response = await axios.get<GetMoviesResponse>(
-      `${MOVIE_DB_BASE_URL}/discover/movie`,
-      { params },
-    );
+    if (params) {
+      if (params.categoryId) {
+        urlParams.set("with_genres", params.categoryId.toString());
+      }
+
+      if (params.query) {
+        urlParams.set("query", params.query);
+      }
+
+      if (params.sortBy) {
+        // MovieDB expects sort_by as parameter with order appended
+        const sortOrder = params.sortDirection === "ASC" ? "asc" : "desc";
+        urlParams.set("sort_by", `${params.sortBy}.${sortOrder}`);
+      }
+    }
+
+    const endpoint = params?.query
+      ? `${MOVIE_DB_BASE_URL}/search/movie`
+      : `${MOVIE_DB_BASE_URL}/discover/movie`;
+
+    const response = await axios.get<GetMoviesResponse>(endpoint, {
+      params: urlParams,
+    });
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch movies");
@@ -38,10 +70,10 @@ export const getMovies = async (): Promise<Movie[]> => {
   }
 };
 
-export const useGetMovies = () => {
+export const useGetMovies = (params?: GetMoviesParams) => {
   return useQuery({
-    queryKey: ["movies"],
-    queryFn: () => getMovies(),
+    queryKey: ["movies", params],
+    queryFn: () => getMovies(params),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
 };

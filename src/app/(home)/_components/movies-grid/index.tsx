@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
-import { useGetMovies } from "~/hooks/movies/useGetMovies";
 import MovieCard from "./partials/movie-card";
 import { Skeleton } from "~/components/ui/skeleton";
+import { moviesStore } from "~/store/movies-store";
 
 const SKELETON_COUNT = 10;
 
 const MoviesGrid: React.FC = () => {
-  const { data: movies, isLoading } = useGetMovies();
+  const isLoading = false;
+  const movies = moviesStore((state) => state.movies);
 
   if (isLoading || !movies) {
     return (

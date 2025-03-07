@@ -1,11 +1,10 @@
 import { getMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
 import CategoryFilters from "./_components/category-filters";
-import { getQueryClient } from "~/lib/get-query-client";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
-import { getMovies } from "~/hooks/movies/useGetMovies";
-import { type SortOption } from "~/interfaces/IMovie";
+import { getMovies, type SortOption } from "~/hooks/movies/useGetMovies";
+import { getQueryClient } from "~/lib/get-query-client";
 
 type Params = Promise<{
   category?: string;
@@ -36,8 +35,22 @@ export default async function HomePage({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["movies"],
-    queryFn: () => getMovies(),
+    queryKey: [
+      "movies",
+      {
+        categoryId: selectedCategoryId,
+        query: searchQuery,
+        sortBy,
+        sortDirection,
+      },
+    ],
+    queryFn: () =>
+      getMovies({
+        categoryId: selectedCategoryId,
+        query: searchQuery,
+        sortBy,
+        sortDirection,
+      }),
   });
 
   return (

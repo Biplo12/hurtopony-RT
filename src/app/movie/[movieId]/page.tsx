@@ -11,7 +11,9 @@ type Params = Promise<{ movieId: string }>;
 const MovieDetails = async ({ params }: { params: Params }) => {
   const resolvedParams = await params;
   const { movieId } = resolvedParams;
+
   const queryClient = getQueryClient();
+
   await queryClient.prefetchQuery({
     queryKey: ["movie-details", movieId],
     queryFn: () => getMovieDetails(movieId),
