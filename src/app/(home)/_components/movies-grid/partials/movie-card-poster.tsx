@@ -5,6 +5,7 @@ import React from "react";
 import { Eye } from "lucide-react";
 import { MOVIE_DB_POSTER_PATH } from "~/constants";
 import { cn } from "~/lib/utils";
+import MoviePlaceholder from "~/app/movie/[movieId]/_components/movie-hero/partials/movie-placeholder";
 interface MovieCardPosterProps {
   posterPath: string;
   title: string;
@@ -19,19 +20,24 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
   const getRatingColor = (rating: number): string => {
     if (rating >= 8) return "bg-green-500";
     if (rating >= 6) return "bg-yellow-500";
+
     return "bg-red-500";
   };
 
   return (
     <div className="relative aspect-[2/3]">
-      <img
-        src={`${MOVIE_DB_POSTER_PATH}${posterPath}`}
-        alt={title}
-        loading="eager"
-        className={cn(
-          "poster-mask h-full w-full object-cover object-center transition-opacity duration-500",
-        )}
-      />
+      {posterPath ? (
+        <img
+          src={`${MOVIE_DB_POSTER_PATH}${posterPath}`}
+          alt={title}
+          loading="eager"
+          className={cn(
+            "poster-mask h-full w-full object-cover object-center transition-opacity duration-500",
+          )}
+        />
+      ) : (
+        <MoviePlaceholder title="No poster available" />
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
@@ -42,7 +48,7 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
             "rounded-md px-2 py-1 text-xs font-bold text-white",
           )}
         >
-          {rating}
+          {rating || "N/A"}
         </span>
       </div>
 

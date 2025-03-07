@@ -6,6 +6,7 @@ import { type Movie } from "~/interfaces/IMovie";
 import MoviePoster from "./partials/movie-poster";
 import MovieInfo from "./partials/movie-info";
 import { MOVIE_DB_BACKDROP_PATH } from "~/constants/";
+import MoviePlaceholder from "./partials/movie-placeholder";
 
 interface MovieHeroProps {
   movie: Movie;
@@ -14,11 +15,15 @@ interface MovieHeroProps {
 const MovieHero: React.FC<MovieHeroProps> = ({ movie }) => {
   return (
     <div className="relative h-[50vh] w-full overflow-hidden md:h-[70vh]">
-      <img
-        src={`${MOVIE_DB_BACKDROP_PATH}${movie.backdrop_path}`}
-        alt={`${movie.title} backdrop`}
-        className="h-full w-full object-cover opacity-100 transition-opacity duration-500"
-      />
+      {movie.backdrop_path ? (
+        <img
+          src={`${MOVIE_DB_BACKDROP_PATH}${movie.backdrop_path}`}
+          alt={`${movie.title} backdrop`}
+          className="h-full w-full object-cover opacity-100 transition-opacity duration-500"
+        />
+      ) : (
+        <MoviePlaceholder title="No backdrop available" />
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30"></div>
 

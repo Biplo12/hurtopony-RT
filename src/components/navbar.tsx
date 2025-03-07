@@ -23,6 +23,8 @@ const NavBar: React.FC = () => {
         <nav className="hidden items-center space-x-1 md:flex">
           <Link
             href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hover:text-neon-blue rounded-md px-3 py-2 text-sm transition-all hover:bg-white/5"
           >
             Github
