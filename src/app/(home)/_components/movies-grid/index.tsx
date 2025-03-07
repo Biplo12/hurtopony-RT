@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MovieCard from "./partials/movie-card";
 import { Skeleton } from "~/components/ui/skeleton";
 import { type SortOption, useGetMovies } from "~/hooks/movies/useGetMovies";
@@ -8,7 +8,12 @@ import { useSearchParams } from "next/navigation";
 
 const SKELETON_COUNT = 10;
 
-const MoviesGrid: React.FC = () => {
+interface MoviesGridProps {
+  isParamsLoading?: boolean;
+}
+
+const MoviesGrid: React.FC<MoviesGridProps> = ({ isParamsLoading = false }) => {
+  const [shouldShowContent, setShouldShowContent] = useState(false);
   const params = useSearchParams();
 
   const category = params.get("category");
@@ -17,12 +22,26 @@ const MoviesGrid: React.FC = () => {
   const sortDirection =
     (params.get("sortDirection") as "ASC" | "DESC") ?? "DESC";
 
-  const { data: movies, isLoading } = useGetMovies({
+  const { data: movies, isLoading: isMoviesLoading } = useGetMovies({
     categoryId: category ? Number(category) : null,
     query,
     sortBy,
     sortDirection,
   });
+
+  const isLoading = isMoviesLoading || isParamsLoading || !shouldShowContent;
+
+  useEffect(() => {
+    if (!isMoviesLoading && !isParamsLoading && movies) {
+      const timer = setTimeout(() => {
+        setShouldShowContent(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+    if (isMoviesLoading || isParamsLoading) {
+      setShouldShowContent(false);
+    }
+  }, [isMoviesLoading, isParamsLoading, movies]);
 
   if (isLoading || !movies) {
     return (

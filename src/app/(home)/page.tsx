@@ -6,7 +6,7 @@ import MoviesGrid from "./_components/movies-grid";
 import { useURLSynchronizer } from "~/hooks/useURLSynchronizer";
 
 export default function HomePage() {
-  useURLSynchronizer();
+  const { isLoading: isParamsLoading } = useURLSynchronizer();
 
   return (
     <div className="min-h-screen bg-background pb-20 text-foreground">
@@ -21,7 +21,7 @@ export default function HomePage() {
         </div>
         <CategoryFilters />
         <SortOptions />
-        <MoviesGrid />
+        <MoviesGrid isParamsLoading={isParamsLoading} />
       </main>
     </div>
   );
