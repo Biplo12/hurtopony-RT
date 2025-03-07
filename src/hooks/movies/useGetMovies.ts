@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { MOVIE_DB_API_KEY } from "~/constants/env";
-import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type Movie } from "~/interfaces/IMovie";
 import { moviesStore } from "~/store/movies-store";
 
@@ -31,8 +29,6 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
 
     const urlParams = new URLSearchParams();
 
-    urlParams.set("api_key", MOVIE_DB_API_KEY);
-
     if (params) {
       if (params.categoryId) {
         urlParams.set("with_genres", params.categoryId.toString());
@@ -43,17 +39,13 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
       }
 
       if (params.sortBy) {
-        // MovieDB expects sort_by as parameter with order appended
         const sortOrder = params.sortDirection === "ASC" ? "asc" : "desc";
+
         urlParams.set("sort_by", `${params.sortBy}.${sortOrder}`);
       }
     }
 
-    const endpoint = params?.query
-      ? `${MOVIE_DB_BASE_URL}/search/movie`
-      : `${MOVIE_DB_BASE_URL}/discover/movie`;
-
-    const response = await axios.get<GetMoviesResponse>(endpoint, {
+    const response = await axios.get<GetMoviesResponse>(`/api/movies`, {
       params: urlParams,
     });
 

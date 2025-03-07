@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { MOVIE_DB_API_KEY } from "~/constants/env";
-import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type MovieCategory } from "~/interfaces/IMovie";
 import { moviesStore } from "~/store/movies-store";
 
@@ -14,12 +12,7 @@ export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
     const { setMoviesCategories } = moviesStore.getState();
 
     const response = await axios.get<GetMoviesCategoriesResponse>(
-      `${MOVIE_DB_BASE_URL}/genre/movie/list`,
-      {
-        params: {
-          api_key: MOVIE_DB_API_KEY,
-        },
-      },
+      `/api/movies/categories`,
     );
 
     if (response.status !== 200) {

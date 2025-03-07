@@ -3,13 +3,19 @@
 import React from "react";
 import MovieCard from "./partials/movie-card";
 import { Skeleton } from "~/components/ui/skeleton";
-import { moviesStore } from "~/store/movies-store";
+import { type SortOption, useGetMovies } from "~/hooks/movies/useGetMovies";
+import { useSearchParams } from "next/navigation";
 
 const SKELETON_COUNT = 10;
 
 const MoviesGrid: React.FC = () => {
-  const isLoading = false;
-  const movies = moviesStore((state) => state.movies);
+  const params = useSearchParams();
+  const { data: movies, isLoading } = useGetMovies({
+    categoryId: Number(params.get("category")),
+    query: params.get("q") ?? "",
+    sortBy: params.get("sortBy") as SortOption,
+    sortDirection: params.get("sortDirection") as "ASC" | "DESC",
+  });
 
   if (isLoading || !movies) {
     return (
