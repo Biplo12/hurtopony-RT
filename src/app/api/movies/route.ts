@@ -5,30 +5,28 @@ import { MOVIE_DB_API_KEY } from "~/constants/env";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  const query = searchParams.get("query");
 
   const urlParams = new URLSearchParams();
-
-  if (searchParams.get("with_genres")) {
-    urlParams.set("with_genres", searchParams.get("with_genres") ?? "");
-  }
-
-  if (searchParams.get("query")) {
-    urlParams.set("query", searchParams.get("query") ?? "");
-  }
+  urlParams.set("api_key", MOVIE_DB_API_KEY);
 
   if (searchParams.get("sort_by")) {
     urlParams.set("sort_by", searchParams.get("sort_by") ?? "");
   }
 
-  if (searchParams.get("sort_direction")) {
-    urlParams.set("sort_direction", searchParams.get("sort_direction") ?? "");
+  const endpoint = query
+    ? `${MOVIE_DB_BASE_URL}/search/movie`
+    : `${MOVIE_DB_BASE_URL}/discover/movie`;
+
+  if (query) {
+    urlParams.set("query", query);
+  } else {
+    if (searchParams.get("with_genres")) {
+      urlParams.set("with_genres", searchParams.get("with_genres") ?? "");
+    }
   }
 
-  urlParams.set("api_key", MOVIE_DB_API_KEY);
-
-  console.log(urlParams.toString());
-
-  const response = await axios.get(`${MOVIE_DB_BASE_URL}/discover/movie`, {
+  const response = await axios.get(endpoint, {
     params: urlParams,
   });
 
