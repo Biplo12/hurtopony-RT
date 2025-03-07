@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { moviesStore } from "~/store/movies-store";
 
 const SearchBar: React.FC = () => {
-  const searchParams = useSearchParams();
   const { setSearchQuery } = moviesStore((state) => state);
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const [query, setQuery] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -31,14 +29,6 @@ const SearchBar: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [query, setSearchQuery]);
-
-  useEffect(() => {
-    const searchQuery = searchParams.get("q");
-    if (searchQuery) {
-      setQuery(searchQuery);
-      setSearchQuery(searchQuery);
-    }
-  }, [searchParams, setQuery, setSearchQuery]);
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full">

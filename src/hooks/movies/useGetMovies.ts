@@ -17,10 +17,12 @@ export type SortOption =
   | "title";
 
 interface GetMoviesParams {
-  categoryId: number | null;
-  query: string;
-  sortBy: SortOption;
-  sortDirection: "ASC" | "DESC";
+  selectedCategoryId: number | null;
+  searchQuery: string;
+  sortOptions: {
+    sortBy: SortOption;
+    sortDirection: "ASC" | "DESC";
+  };
 }
 
 export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
@@ -30,18 +32,19 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
     const urlParams = new URLSearchParams();
 
     if (params) {
-      if (params.categoryId) {
-        urlParams.set("with_genres", params.categoryId.toString());
+      if (params.selectedCategoryId) {
+        urlParams.set("with_genres", params.selectedCategoryId.toString());
       }
 
-      if (params.query) {
-        urlParams.set("query", params.query);
+      if (params.searchQuery) {
+        urlParams.set("query", params.searchQuery);
       }
 
-      if (params.sortBy) {
-        const sortOrder = params.sortDirection === "ASC" ? "asc" : "desc";
+      if (params.sortOptions.sortBy) {
+        const sortOrder =
+          params.sortOptions.sortDirection === "ASC" ? "asc" : "desc";
 
-        urlParams.set("sort_by", `${params.sortBy}.${sortOrder}`);
+        urlParams.set("sort_by", `${params.sortOptions.sortBy}.${sortOrder}`);
       }
     }
 
@@ -62,10 +65,19 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
   }
 };
 
-export const useGetMovies = (params?: GetMoviesParams) => {
+export const useGetMovies = () => {
+  const { searchQuery, sortOptions, selectedCategoryId } = moviesStore(
+    (state) => state,
+  );
+
   return useQuery({
-    queryKey: ["movies", params],
-    queryFn: () => getMovies(params),
+    queryKey: ["movies", searchQuery, sortOptions, selectedCategoryId],
+    queryFn: () =>
+      getMovies({
+        searchQuery,
+        sortOptions,
+        selectedCategoryId,
+      }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
 };

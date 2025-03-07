@@ -3,27 +3,27 @@ import { cn } from "~/lib/utils";
 import { moviesStore } from "~/store/movies-store";
 import { type SortOption } from "~/interfaces/IMovie";
 
+const sortOptionsMap = [
+  {
+    label: "Popularity",
+    value: "popularity",
+  },
+  {
+    label: "Rating",
+    value: "vote_average",
+  },
+  {
+    label: "Release Date",
+    value: "release_date",
+  },
+  {
+    label: "Title",
+    value: "title",
+  },
+];
+
 const SortButtons: React.FC = () => {
   const { sortOptions, setSortOptions } = moviesStore((state) => state);
-
-  const sortOptionsMap = [
-    {
-      label: "Popularity",
-      value: "popularity",
-    },
-    {
-      label: "Rating",
-      value: "vote_average",
-    },
-    {
-      label: "Release Date",
-      value: "release_date",
-    },
-    {
-      label: "Title",
-      value: "title",
-    },
-  ];
 
   const handleSort = (option: SortOption) => {
     setSortOptions({

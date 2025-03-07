@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { moviesStore } from "~/store/movies-store";
-import { useSearchParams } from "next/navigation";
+import { parse } from "qs";
 import { type SortOption } from "~/interfaces/IMovie";
 
 /**
@@ -12,7 +12,6 @@ import { type SortOption } from "~/interfaces/IMovie";
  */
 export const useURLSynchronizer = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const searchParams = useSearchParams();
   const {
     searchQuery,
     sortOptions,
@@ -25,27 +24,26 @@ export const useURLSynchronizer = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    const queryParam = searchParams.get("q");
-    const sortByParam = searchParams.get("sortBy") as SortOption | null;
-    const sortDirectionParam = searchParams.get("sortDirection") as
-      | "ASC"
-      | "DESC"
-      | null;
-    const categoryParam = searchParams.get("category");
+    const { q, sortBy, sortDirection, category } = parse(
+      window.location.search,
+      {
+        ignoreQueryPrefix: true,
+      },
+    );
 
-    if (queryParam) {
-      setSearchQuery(queryParam);
+    if (q) {
+      setSearchQuery(q as string);
     }
 
-    if (sortByParam && sortDirectionParam) {
+    if (sortBy && sortDirection) {
       setSortOptions({
-        sortBy: sortByParam,
-        sortDirection: sortDirectionParam,
+        sortBy: sortBy as SortOption,
+        sortDirection: sortDirection as "ASC" | "DESC",
       });
     }
 
-    if (categoryParam) {
-      setSelectedCategoryId(Number(categoryParam));
+    if (category) {
+      setSelectedCategoryId(Number(category));
     }
 
     const timer = setTimeout(() => {

@@ -5,15 +5,17 @@ import { moviesStore } from "~/store/movies-store";
 const DirectionButton: React.FC = () => {
   const { sortOptions, setSortOptions } = moviesStore((state) => state);
 
+  const handleSortDirection = () => {
+    setSortOptions({
+      ...sortOptions,
+      sortDirection: sortOptions.sortDirection === "ASC" ? "DESC" : "ASC",
+    });
+  };
+
   return (
     <button
-      onClick={() =>
-        setSortOptions({
-          ...sortOptions,
-          sortDirection: sortOptions.sortDirection === "ASC" ? "DESC" : "ASC",
-        })
-      }
-      className="ml-1 rounded-md border border-white/5 bg-secondary/50 p-1.5 transition-colors hover:bg-secondary"
+      onClick={handleSortDirection}
+      className="rounded-md border border-white/5 bg-secondary/50 p-1.5 transition-colors hover:bg-secondary"
       aria-label={
         sortOptions.sortDirection === "ASC"
           ? "Sort descending"

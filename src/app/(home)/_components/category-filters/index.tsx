@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useRef } from "react";
 
 import ScrollButton from "./partials/scroll-button";
 import CategorySkeleton from "./partials/category-skeleton";
 import CategoryButtons from "./partials/category-buttons";
 import { useGetMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
-import { moviesStore } from "~/store/movies-store";
 
 interface CategoryFiltersProps {
   isParamsLoading?: boolean;
@@ -17,21 +15,9 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
   isParamsLoading = false,
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
-  const { setSelectedCategoryId } = moviesStore((state) => state);
 
   const { data: moviesCategories, isLoading: isCategoriesLoading } =
     useGetMoviesCategories();
-
-  const isLoading = isCategoriesLoading || isParamsLoading;
-
-  useEffect(() => {
-    const category = searchParams.get("category");
-    if (category) {
-      setSelectedCategoryId(Number(category));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleScrollDirection = (direction: "LEFT" | "RIGHT") => {
     if (scrollRef.current) {
@@ -45,6 +31,8 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
       }
     }
   };
+
+  const isLoading = isCategoriesLoading || isParamsLoading;
 
   return (
     <div className="relative my-6 w-full">

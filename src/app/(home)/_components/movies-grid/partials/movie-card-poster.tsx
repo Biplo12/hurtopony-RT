@@ -26,18 +26,16 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
 
   return (
     <div className="relative aspect-[2/3]">
-      {posterPath ? (
+      {posterPath && (
         <img
           src={`${MOVIE_DB_POSTER_PATH}${posterPath}`}
           alt={title}
           loading="eager"
-          className={cn(
-            "poster-mask h-full w-full object-cover object-center transition-opacity duration-500",
-          )}
+          className="poster-mask h-full w-full object-cover object-center transition-opacity duration-500"
         />
-      ) : (
-        <MoviePlaceholder title="No poster available" />
       )}
+
+      {!posterPath && <MoviePlaceholder title="No poster available" />}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 

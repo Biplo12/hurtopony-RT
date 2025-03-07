@@ -3,6 +3,8 @@
 import React from "react";
 import { type MovieCategory } from "~/interfaces/IMovie";
 
+const MAX_GENRES = 2;
+
 interface MovieCardContentProps {
   title: string;
   releaseYear: number;
@@ -15,16 +17,17 @@ const MovieCardContent: React.FC<MovieCardContentProps> = ({
   genres,
 }) => {
   return (
-    <div className="p-4">
-      <h2 className="mb-1 text-balance text-lg font-semibold leading-tight">
+    <div className="flex flex-col gap-2 p-4">
+      <h2 className="text-balance text-lg font-semibold leading-tight">
         {title}
       </h2>
+
       <p className="text-sm text-muted-foreground">
         {releaseYear ? releaseYear : "N/A"}
       </p>
 
-      <div className="mt-2 flex flex-wrap gap-1">
-        {genres.slice(0, 2).map((genre) => (
+      <div className="flex flex-wrap gap-1">
+        {genres.slice(0, MAX_GENRES).map((genre) => (
           <span
             key={genre.id}
             className="inline-block rounded bg-secondary/80 px-2 py-0.5 text-xs"
@@ -32,9 +35,10 @@ const MovieCardContent: React.FC<MovieCardContentProps> = ({
             {genre.name}
           </span>
         ))}
-        {genres.length > 2 && (
+
+        {genres.length > MAX_GENRES && (
           <span className="inline-block rounded bg-secondary/80 px-2 py-0.5 text-xs">
-            +{genres.length - 2}
+            +{genres.length - MAX_GENRES}
           </span>
         )}
       </div>

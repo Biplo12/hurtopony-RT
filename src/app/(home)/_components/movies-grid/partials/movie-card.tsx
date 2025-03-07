@@ -24,7 +24,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     <div className="group">
       <Link
         href={`/movie/${movie.id}`}
-        className="neo-card card-hover relative block h-full overflow-hidden rounded-xl"
+        className="relative block h-full overflow-hidden rounded-xl border border-white/10 bg-card/80 shadow-lg backdrop-blur-md"
       >
         <MovieCardPoster
           posterPath={movie.poster_path}

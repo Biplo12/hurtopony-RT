@@ -9,20 +9,19 @@ export default function HomePage() {
   const { isLoading: isParamsLoading } = useURLSynchronizer();
 
   return (
-    <div className="min-h-screen bg-background pb-20 text-foreground">
-      <main className="container mx-auto px-4 pb-12 pt-24">
-        <div className="mb-8 animate-slide-in text-center">
-          <h1 className="mb-2 text-3xl font-bold tracking-tight md:text-4xl">
-            Discover Movies
-          </h1>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            Explore the world of cinema with our curated collection of films
-          </p>
-        </div>
-        <CategoryFilters isParamsLoading={isParamsLoading} />
-        <SortOptions isParamsLoading={isParamsLoading} />
-        <MoviesGrid isParamsLoading={isParamsLoading} />
-      </main>
-    </div>
+    <main className="container mx-auto min-h-screen bg-background px-4 pb-12 pt-24 text-foreground">
+      <div className="mb-8 flex animate-slide-in flex-col gap-2 text-center">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          Discover Movies
+        </h1>
+        <p className="mx-auto max-w-2xl text-muted-foreground">
+          Explore the world of cinema with our curated collection of films
+        </p>
+      </div>
+
+      <CategoryFilters isParamsLoading={isParamsLoading} />
+      <SortOptions isParamsLoading={isParamsLoading} />
+      <MoviesGrid isParamsLoading={isParamsLoading} />
+    </main>
   );
 }
