@@ -37,7 +37,7 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
 
       {!posterPath && <MoviePlaceholder title="No poster available" />}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
       <div className="absolute right-2 top-2 z-10">
         <span

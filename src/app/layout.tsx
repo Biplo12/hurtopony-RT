@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import ReactQueryProvider from "~/providers/react-query-provider";
-import NavBar from "~/components/navbar";
+import Header from "~/components/header";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <Suspense>
-            <NavBar />
+            <Header />
             {children}
           </Suspense>
         </ReactQueryProvider>

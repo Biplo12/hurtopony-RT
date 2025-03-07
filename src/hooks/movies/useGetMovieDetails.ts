@@ -23,6 +23,11 @@ export const getMovieDetails = async (
   }
 };
 
+/**
+ * Fetches the details of a movie from the API by movie ID.
+ * @param movieId - The ID of the movie to fetch details for.
+ * @returns The movie details.
+ */
 export const useGetMovieDetails = (movieId: string) => {
   return useQuery({
     queryKey: ["movie-details", movieId],

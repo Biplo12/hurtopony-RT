@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex min-h-screen items-center justify-center">

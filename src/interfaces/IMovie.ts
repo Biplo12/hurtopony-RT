@@ -23,7 +23,7 @@ export type Movie = {
 };
 
 export type SortOption =
-  | "popularity"
-  | "vote_average"
-  | "release_date"
-  | "title";
+  | "POPULARITY"
+  | "VOTE_AVERAGE"
+  | "RELEASE_DATE"
+  | "TITLE";

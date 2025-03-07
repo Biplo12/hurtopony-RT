@@ -65,6 +65,13 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
   }
 };
 
+/**
+ * Fetches movies from the API.
+ * @param searchQuery - The search query to fetch movies for.
+ * @param sortOptions - The sort options to fetch movies for.
+ * @param selectedCategoryId - The selected category ID to fetch movies for.
+ * @returns The movies
+ */
 export const useGetMovies = () => {
   const { searchQuery, sortOptions, selectedCategoryId } = moviesStore(
     (state) => state,

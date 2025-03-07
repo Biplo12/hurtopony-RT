@@ -44,10 +44,10 @@ const MovieDetailsSkeleton = () => {
         <div className="grid gap-8 md:grid-cols-3">
           <div className="md:col-span-2">
             <div className="mb-4 flex items-center space-x-2">
-              <Info className="text-neon-blue h-5 w-5" />
+              <Info className="h-5 w-5" />
               <h2 className="text-xl font-semibold">Overview</h2>
             </div>
-            <div className="glass-card rounded-xl px-2">
+            <div className="rounded-xl px-2">
               <Skeleton className="mb-2 h-4 w-full" />
               <Skeleton className="mb-2 h-4 w-full" />
               <Skeleton className="mb-2 h-4 w-3/4" />

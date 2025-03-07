@@ -13,19 +13,23 @@ interface MovieHeroProps {
 }
 
 const MovieHero: React.FC<MovieHeroProps> = ({ movie }) => {
+  if (!movie) return null;
+
   return (
     <div className="relative h-[50vh] w-full overflow-hidden md:h-[70vh]">
-      {movie.backdrop_path ? (
+      {movie.backdrop_path && (
         <img
           src={`${MOVIE_DB_BACKDROP_PATH}${movie.backdrop_path}`}
           alt={`${movie.title} backdrop`}
           className="h-full w-full object-cover opacity-100 transition-opacity duration-500"
         />
-      ) : (
+      )}
+
+      {!movie.backdrop_path && (
         <MoviePlaceholder title="No backdrop available" />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
 
       <div className="absolute bottom-0 left-0 right-0 mx-auto flex flex-col items-center space-y-6 p-6 md:container md:flex-row md:items-end md:space-x-8 md:space-y-0 md:p-8">
         <MoviePoster movie={movie} />

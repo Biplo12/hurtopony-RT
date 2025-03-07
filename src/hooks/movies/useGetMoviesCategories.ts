@@ -27,6 +27,10 @@ export const getMoviesCategories = async (): Promise<MovieCategory[]> => {
   }
 };
 
+/**
+ * Fetches the movies categories from the API.
+ * @returns The movies categories.
+ */
 export const useGetMoviesCategories = () => {
   return useQuery({
     queryKey: ["movies-categories"],
