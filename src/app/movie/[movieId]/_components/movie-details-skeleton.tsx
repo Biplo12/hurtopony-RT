@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Skeleton } from "~/components/ui/skeleton";
 import { ArrowLeft, Info } from "lucide-react";
 
-const MovieDetailsSkeleton = () => {
+const MovieDetailsSkeleton: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Link

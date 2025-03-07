@@ -8,7 +8,7 @@ import { useGetMovieDetails } from "~/hooks/movies/useGetMovieDetails";
 import MovieDetailsSkeleton from "./_components/movie-details-skeleton";
 import BackArrowButton from "./_components/back-arrow-button";
 
-const MovieDetails = () => {
+const MovieDetails: React.FC = () => {
   const params = useParams();
   const movieId = params.movieId;
 
@@ -38,7 +38,7 @@ const MovieDetails = () => {
 
       <MovieHero movie={movie} />
 
-      <div className="container mx-auto px-6 pb-16 pt-24 md:pt-32">
+      <div className="container mx-auto px-6 py-16 md:pt-24">
         <div className="grid gap-8 md:grid-cols-3">
           <MovieOverview movie={movie} />
         </div>
