@@ -15,6 +15,11 @@ interface MoviesStore {
     sortBy: SortOption;
     sortDirection: "ASC" | "DESC";
   };
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
+  };
 }
 
 interface MoviesStoreActions {
@@ -26,6 +31,12 @@ interface MoviesStoreActions {
     sortBy: SortOption;
     sortDirection: "ASC" | "DESC";
   }) => void;
+  setPagination: (pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
+  }) => void;
+  setCurrentPage: (page: number) => void;
 }
 
 const updateURLParams = (params: Record<string, string | null>) => {
@@ -49,6 +60,11 @@ const initialState: MoviesStore = {
     sortBy: "POPULARITY",
     sortDirection: "DESC",
   },
+  pagination: {
+    currentPage: 1,
+    totalPages: 1,
+    totalResults: 0,
+  },
 };
 
 export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
@@ -60,12 +76,28 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
     setSelectedCategoryId: (selectedCategoryId: number | null) => {
       updateURLParams({
         category: selectedCategoryId?.toString() ?? null,
+        page: null,
       });
-      set({ selectedCategoryId });
+      set((state) => ({
+        selectedCategoryId,
+        pagination: {
+          ...state.pagination,
+          currentPage: 1,
+        },
+      }));
     },
     setSearchQuery: (query: string) => {
-      updateURLParams({ q: query });
-      set({ searchQuery: query });
+      updateURLParams({
+        q: query,
+        page: null,
+      });
+      set((state) => ({
+        searchQuery: query,
+        pagination: {
+          ...state.pagination,
+          currentPage: 1,
+        },
+      }));
     },
     setSortOptions: (sortOptions: {
       sortBy: SortOption;
@@ -74,8 +106,33 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
       updateURLParams({
         sortBy: sortOptions.sortBy,
         sortDirection: sortOptions.sortDirection,
+        page: null,
       });
-      set({ sortOptions });
+      set((state) => ({
+        sortOptions,
+        pagination: {
+          ...state.pagination,
+          currentPage: 1,
+        },
+      }));
+    },
+    setPagination: (pagination: {
+      currentPage: number;
+      totalPages: number;
+      totalResults: number;
+    }) => {
+      set({ pagination });
+    },
+    setCurrentPage: (page: number) => {
+      updateURLParams({
+        page: page.toString(),
+      });
+      set((state) => ({
+        pagination: {
+          ...state.pagination,
+          currentPage: page,
+        },
+      }));
     },
   })),
 );

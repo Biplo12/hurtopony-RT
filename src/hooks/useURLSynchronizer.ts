@@ -16,15 +16,17 @@ export const useURLSynchronizer = () => {
     searchQuery,
     sortOptions,
     selectedCategoryId,
+    pagination,
     setSearchQuery,
     setSortOptions,
     setSelectedCategoryId,
+    setCurrentPage,
   } = moviesStore((state) => state);
 
   useEffect(() => {
     setIsLoading(true);
 
-    const { q, sortBy, sortDirection, category } = parse(
+    const { q, sortBy, sortDirection, category, page } = parse(
       window.location.search,
       {
         ignoreQueryPrefix: true,
@@ -44,6 +46,10 @@ export const useURLSynchronizer = () => {
 
     if (category) {
       setSelectedCategoryId(Number(category));
+    }
+
+    if (page) {
+      setCurrentPage(Number(page));
     }
 
     const timer = setTimeout(() => {
@@ -79,8 +85,20 @@ export const useURLSynchronizer = () => {
       url.searchParams.delete("category");
     }
 
+    if (pagination.currentPage > 1) {
+      url.searchParams.set("page", pagination.currentPage.toString());
+    } else {
+      url.searchParams.delete("page");
+    }
+
     window.history.replaceState({}, "", url);
-  }, [searchQuery, sortOptions, selectedCategoryId, isLoading]);
+  }, [
+    searchQuery,
+    sortOptions,
+    selectedCategoryId,
+    pagination.currentPage,
+    isLoading,
+  ]);
 
   return { isLoading };
 };

@@ -6,9 +6,11 @@ import { MOVIE_DB_API_KEY } from "~/constants/env";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("query");
+  const page = searchParams.get("page") ?? "1";
 
   const urlParams = new URLSearchParams();
   urlParams.set("api_key", MOVIE_DB_API_KEY);
+  urlParams.set("page", page);
 
   if (searchParams.get("sort_by")) {
     urlParams.set("sort_by", searchParams.get("sort_by") ?? "");

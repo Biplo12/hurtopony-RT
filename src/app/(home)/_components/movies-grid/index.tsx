@@ -4,6 +4,8 @@ import React from "react";
 import MovieCard from "./partials/movie-card";
 import { useGetMovies } from "~/hooks/movies/useGetMovies";
 import MovieCardSkeleton from "./partials/movie-card-skeleton";
+import PaginationControls from "~/components/pagination-controls";
+import { moviesStore } from "~/store/movies-store";
 
 interface MoviesGridProps {
   isParamsLoading?: boolean;
@@ -11,6 +13,7 @@ interface MoviesGridProps {
 
 const MoviesGrid: React.FC<MoviesGridProps> = ({ isParamsLoading = false }) => {
   const { data: movies, isLoading: isMoviesLoading } = useGetMovies();
+  const { pagination } = moviesStore((state) => state);
 
   const isLoading = isMoviesLoading || isParamsLoading;
 
@@ -31,8 +34,12 @@ const MoviesGrid: React.FC<MoviesGridProps> = ({ isParamsLoading = false }) => {
   }
 
   return (
-    <div className="xs:grid-cols-2 grid animate-fade-in grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {movies?.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+    <div className="flex flex-col space-y-8">
+      <div className="xs:grid-cols-2 grid animate-fade-in grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {movies?.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+      </div>
+
+      {pagination.totalPages > 1 && <PaginationControls />}
     </div>
   );
 };

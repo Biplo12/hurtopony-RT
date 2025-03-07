@@ -17,11 +17,12 @@ interface GetMoviesParams {
     sortBy: SortOption;
     sortDirection: "ASC" | "DESC";
   };
+  currentPage: number;
 }
 
 export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
   try {
-    const { setMovies } = moviesStore.getState();
+    const { setMovies, setPagination } = moviesStore.getState();
 
     const urlParams = new URLSearchParams();
 
@@ -40,6 +41,10 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
 
         urlParams.set("sort_by", `${params.sortOptions.sortBy}.${sortOrder}`);
       }
+
+      if (params.currentPage) {
+        urlParams.set("page", params.currentPage.toString());
+      }
     }
 
     const response = await axios.get<GetMoviesResponse>(`/api/movies`, {
@@ -49,6 +54,12 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
     if (response.status !== 200) {
       throw new Error("Failed to fetch movies");
     }
+
+    setPagination({
+      currentPage: response.data.page,
+      totalPages: response.data.total_pages,
+      totalResults: response.data.total_results,
+    });
 
     setMovies(response.data.results);
 
@@ -67,17 +78,23 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
  * @returns The movies
  */
 export const useGetMovies = () => {
-  const { searchQuery, sortOptions, selectedCategoryId } = moviesStore(
-    (state) => state,
-  );
+  const { searchQuery, sortOptions, selectedCategoryId, pagination } =
+    moviesStore((state) => state);
 
   return useQuery({
-    queryKey: ["movies", searchQuery, sortOptions, selectedCategoryId],
+    queryKey: [
+      "movies",
+      searchQuery,
+      sortOptions,
+      selectedCategoryId,
+      pagination.currentPage,
+    ],
     queryFn: () =>
       getMovies({
         searchQuery,
         sortOptions,
         selectedCategoryId,
+        currentPage: pagination.currentPage,
       }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
