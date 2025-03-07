@@ -26,8 +26,8 @@ const MovieInfo: React.FC<MovieInfoProps> = ({ movie }) => {
   ];
 
   return (
-    <div className="flex w-full animate-fade-in flex-col items-start gap-4 md:w-auto md:pb-8">
-      <h1 className="text-balance text-center text-2xl font-bold tracking-tight md:text-left md:text-4xl">
+    <div className="flex w-full animate-fade-in flex-col items-center gap-4 pt-4 text-center sm:pt-6 md:w-auto md:items-start md:pb-4 md:pt-0 md:text-left lg:pb-8">
+      <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
         {movie.title}
       </h1>
 

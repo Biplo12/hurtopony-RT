@@ -46,7 +46,7 @@ const initialState: MoviesStore = {
   selectedCategoryId: null,
   searchQuery: "",
   sortOptions: {
-    sortBy: "popularity",
+    sortBy: "POPULARITY",
     sortDirection: "DESC",
   },
 };

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { type Movie } from "~/interfaces/IMovie";
+import { type SortOption, type Movie } from "~/interfaces/IMovie";
 import { moviesStore } from "~/store/movies-store";
 
 interface GetMoviesResponse {
@@ -9,12 +9,6 @@ interface GetMoviesResponse {
   total_pages: number;
   total_results: number;
 }
-
-export type SortOption =
-  | "popularity"
-  | "release_date"
-  | "vote_average"
-  | "title";
 
 interface GetMoviesParams {
   selectedCategoryId: number | null;

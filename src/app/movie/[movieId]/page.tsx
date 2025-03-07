@@ -38,8 +38,8 @@ const MovieDetails: React.FC = () => {
 
       <MovieHero movie={movie} />
 
-      <div className="container mx-auto px-6 py-16 md:pt-24">
-        <div className="grid gap-8 md:grid-cols-3">
+      <div className="container mx-auto px-4 py-8 sm:px-6">
+        <div className="max-w-4xl">
           <MovieOverview movie={movie} />
         </div>
       </div>

@@ -12,7 +12,7 @@ const MoviePoster: React.FC<MoviePosterProps> = ({ movie }) => {
   if (!movie) return null;
 
   return (
-    <div className="relative w-48 flex-shrink-0 translate-y-12 overflow-hidden rounded-xl shadow-2xl md:w-64 md:translate-y-16">
+    <div className="relative mx-auto w-36 flex-shrink-0 overflow-hidden rounded-xl shadow-2xl sm:w-44 md:mx-0 md:w-56 lg:w-64">
       {movie.poster_path && (
         <img
           src={`${MOVIE_DB_POSTER_PATH}${movie.poster_path}`}

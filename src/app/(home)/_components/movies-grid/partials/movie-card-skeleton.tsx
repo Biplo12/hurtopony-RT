@@ -5,7 +5,7 @@ const SKELETON_COUNT = 10;
 
 const MovieCardSkeleton: React.FC = () => {
   return (
-    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="xs:grid-cols-2 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
         <div key={index} className="overflow-hidden rounded-xl">
           <Skeleton className="skeleton aspect-[2/3]" />

@@ -13,21 +13,21 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ movie }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   return (
-    <div className="flex flex-col gap-4 md:col-span-2">
+    <div className="glass-card flex flex-col gap-4 rounded-xl p-6">
       <div className="flex items-center space-x-2">
-        <Info className="h-5 w-5" />
+        <Info className="h-5 w-5 text-accent" />
         <h2 className="text-xl font-semibold">Overview</h2>
       </div>
 
-      <div className="rounded-xl px-2">
-        <p className="text-base leading-relaxed md:text-lg">
+      <div className="rounded-xl">
+        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
           {showFullDescription
             ? movie.overview
             : truncateDescription(movie.overview, 300)}
         </p>
 
         {!movie.overview && (
-          <p className="text-base leading-relaxed md:text-lg">
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
             No overview available for this movie.
           </p>
         )}
@@ -35,7 +35,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ movie }) => {
         {movie.overview.length > 300 && (
           <button
             onClick={() => setShowFullDescription(!showFullDescription)}
-            className="font-medium text-accent transition-colors"
+            className="mt-2 font-medium text-accent transition-colors hover:text-accent/80"
           >
             {showFullDescription ? "Show Less" : "Read More"}
           </button>
