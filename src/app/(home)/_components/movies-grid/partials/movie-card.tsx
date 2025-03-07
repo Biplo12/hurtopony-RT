@@ -17,7 +17,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const rating = movie.vote_average?.toFixed(1);
 
   const movieGenres = moviesCategories.filter((genre) =>
-    movie.genre_ids.includes(genre.id),
+    movie.genre_ids?.includes(genre.id),
   );
 
   return (

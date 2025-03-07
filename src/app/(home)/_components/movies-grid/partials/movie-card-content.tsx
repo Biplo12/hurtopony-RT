@@ -19,7 +19,9 @@ const MovieCardContent: React.FC<MovieCardContentProps> = ({
       <h2 className="mb-1 text-balance text-lg font-semibold leading-tight">
         {title}
       </h2>
-      <p className="text-sm text-muted-foreground">{releaseYear}</p>
+      <p className="text-sm text-muted-foreground">
+        {releaseYear ? releaseYear : "N/A"}
+      </p>
 
       <div className="mt-2 flex flex-wrap gap-1">
         {genres.slice(0, 2).map((genre) => (
