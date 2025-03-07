@@ -1,28 +1,23 @@
+"use client";
+
 import React from "react";
 import MovieHero from "./_components/movie-hero";
 import MovieOverview from "./_components/movie-overview";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { getMovieDetails } from "~/hooks/movies/useGetMovieDetails";
-import { getQueryClient } from "~/lib/get-query-client";
+import { useParams } from "next/navigation";
+import { useGetMovieDetails } from "~/hooks/movies/useGetMovieDetails";
+import MovieDetailsSkeleton from "./_components/movie-details-skeleton";
 
-type Params = Promise<{ movieId: string }>;
+const MovieDetails = () => {
+  const params = useParams();
+  const movieId = params.movieId;
 
-const MovieDetails = async ({ params }: { params: Params }) => {
-  const resolvedParams = await params;
-  const { movieId } = resolvedParams;
+  const { data: movie, isLoading } = useGetMovieDetails(movieId as string);
 
-  const queryClient = getQueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["movie-details", movieId],
-    queryFn: () => getMovieDetails(movieId),
-  });
-
-  const movie = await queryClient.fetchQuery({
-    queryKey: ["movie-details", movieId],
-    queryFn: () => getMovieDetails(movieId),
-  });
+  if (isLoading) {
+    return <MovieDetailsSkeleton />;
+  }
 
   if (!movie) {
     return (
