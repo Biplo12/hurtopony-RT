@@ -20,8 +20,8 @@ const SortOptions: React.FC<SortOptionsProps> = ({
   return (
     <div className="mb-6 flex flex-wrap items-center gap-2">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="flex items-center text-sm text-muted-foreground">
-          <ListFilter className="mr-1 h-4 w-4" /> Sort by:
+        <span className="flex items-center text-xs text-muted-foreground sm:text-sm">
+          <ListFilter className="mr-1 h-3 w-3 sm:h-4 sm:w-4" /> Sort by:
         </span>
         <SortButtons />
       </div>
