@@ -10,11 +10,13 @@ const SKELETON_COUNT = 10;
 
 const MoviesGrid: React.FC = () => {
   const params = useSearchParams();
+
+  const category = params.get("category");
   const { data: movies, isLoading } = useGetMovies({
-    categoryId: Number(params.get("category")),
+    categoryId: category ? Number(category) : null,
     query: params.get("q") ?? "",
-    sortBy: params.get("sortBy") as SortOption,
-    sortDirection: params.get("sortDirection") as "ASC" | "DESC",
+    sortBy: (params.get("sortBy") as SortOption) ?? "popularity",
+    sortDirection: (params.get("sortDirection") as "ASC" | "DESC") ?? "DESC",
   });
 
   if (isLoading || !movies) {

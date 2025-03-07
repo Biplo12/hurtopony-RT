@@ -1,21 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { MOVIE_DB_API_KEY } from "~/constants/env";
-import { MOVIE_DB_BASE_URL } from "~/constants/request";
 import { type Movie } from "~/interfaces/IMovie";
 
 export const getMovieDetails = async (
   movieId: string,
 ): Promise<Movie | null> => {
   try {
-    const response = await axios.get<Movie>(
-      `${MOVIE_DB_BASE_URL}/movie/${movieId}`,
-      {
-        params: {
-          api_key: MOVIE_DB_API_KEY,
-        },
+    const response = await axios.get<Movie>(`/api/movies/details`, {
+      params: {
+        movieId,
       },
-    );
+    });
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch movie details");

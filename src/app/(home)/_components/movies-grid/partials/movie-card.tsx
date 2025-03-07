@@ -14,7 +14,7 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const { moviesCategories } = moviesStore((state) => state);
   const releaseYear = new Date(movie.release_date).getFullYear();
-  const rating = movie.vote_average.toFixed(1);
+  const rating = movie.vote_average?.toFixed(1);
 
   const movieGenres = moviesCategories.filter((genre) =>
     movie.genre_ids.includes(genre.id),
