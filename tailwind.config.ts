@@ -106,6 +106,9 @@ export default {
         shimmer: "shimmer 1.5s infinite linear",
         float: "float 3s ease-in-out infinite",
       },
+      screens: {
+        xs: "400px",
+      },
     },
   },
   plugins: [animate],

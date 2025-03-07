@@ -37,6 +37,7 @@
     "@tanstack/eslint-plugin-query": "^5.66.1",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.10",
+    "@types/qs": "^6.9.18",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
