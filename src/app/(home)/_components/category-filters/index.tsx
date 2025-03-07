@@ -9,12 +9,21 @@ import CategoryButtons from "./partials/category-buttons";
 import { useGetMoviesCategories } from "~/hooks/movies/useGetMoviesCategories";
 import { moviesStore } from "~/store/movies-store";
 
-const CategoryFilters: React.FC = () => {
+interface CategoryFiltersProps {
+  isParamsLoading?: boolean;
+}
+
+const CategoryFilters: React.FC<CategoryFiltersProps> = ({
+  isParamsLoading = false,
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const { setSelectedCategoryId } = moviesStore((state) => state);
 
-  const { data: moviesCategories, isLoading } = useGetMoviesCategories();
+  const { data: moviesCategories, isLoading: isCategoriesLoading } =
+    useGetMoviesCategories();
+
+  const isLoading = isCategoriesLoading || isParamsLoading;
 
   useEffect(() => {
     const category = searchParams.get("category");

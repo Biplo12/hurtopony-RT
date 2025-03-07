@@ -19,8 +19,8 @@ export default function HomePage() {
             Explore the world of cinema with our curated collection of films
           </p>
         </div>
-        <CategoryFilters />
-        <SortOptions />
+        <CategoryFilters isParamsLoading={isParamsLoading} />
+        <SortOptions isParamsLoading={isParamsLoading} />
         <MoviesGrid isParamsLoading={isParamsLoading} />
       </main>
     </div>
