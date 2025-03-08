@@ -3,6 +3,12 @@ export type MovieCategory = {
   name: string;
 };
 
+export type SortOption =
+  | "popularity"
+  | "vote_average"
+  | "release_date"
+  | "title";
+
 export type Movie = {
   id: number;
   title: string;
@@ -21,9 +27,3 @@ export type Movie = {
   runtime: number;
   genres: MovieCategory[];
 };
-
-export type SortOption =
-  | "popularity"
-  | "vote_average"
-  | "release_date"
-  | "title";
