@@ -9,6 +9,13 @@ export type SortOption =
   | "release_date"
   | "title";
 
+export type CrewMember = {
+  id: number;
+  name: string;
+  job: string;
+  department: string;
+};
+
 export type Movie = {
   id: number;
   title: string;
@@ -26,4 +33,6 @@ export type Movie = {
   vote_count: number;
   runtime: number;
   genres: MovieCategory[];
+  directors: CrewMember[];
+  writers: CrewMember[];
 };
