@@ -24,13 +24,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     <div className="group">
       <Link
         href={`/movie/${movie.id}`}
-        className="relative block h-full overflow-hidden rounded-xl border border-white/10 bg-card/80 shadow-lg backdrop-blur-md"
+        className="relative block h-full overflow-hidden rounded-xl border border-white/10 bg-card/80"
       >
         <MovieCardPoster
           posterPath={movie.poster_path}
           title={movie.title}
           rating={rating}
         />
+
         <MovieCardContent
           title={movie.title}
           releaseYear={releaseYear}

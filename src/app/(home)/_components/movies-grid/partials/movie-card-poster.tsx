@@ -6,6 +6,7 @@ import { Eye } from "lucide-react";
 import { MOVIE_DB_POSTER_PATH } from "~/constants";
 import { cn } from "~/lib/utils";
 import MoviePlaceholder from "~/app/movie/[movieId]/_components/movie-hero/partials/movie-placeholder";
+import Image from "next/image";
 interface MovieCardPosterProps {
   posterPath: string;
   title: string;
@@ -27,10 +28,13 @@ const MovieCardPoster: React.FC<MovieCardPosterProps> = ({
   return (
     <div className="relative aspect-[2/3]">
       {posterPath && (
-        <img
+        <Image
           src={`${MOVIE_DB_POSTER_PATH}${posterPath}`}
           alt={title}
-          loading="eager"
+          width={220}
+          height={330}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
           className="poster-mask h-full w-full object-cover object-center transition-opacity duration-500"
         />
       )}

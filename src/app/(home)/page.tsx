@@ -9,7 +9,7 @@ export default function HomePage() {
   const { isLoading: isParamsLoading } = useURLSynchronizer();
 
   return (
-    <main className="container mx-auto min-h-screen bg-background px-4 pb-12 pt-24 text-foreground">
+    <main className="container mx-auto min-h-[200vh] bg-background px-4 pb-12 pt-24 text-foreground">
       <div className="mb-8 flex animate-slide-in flex-col gap-2 text-center">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
           Discover Movies
