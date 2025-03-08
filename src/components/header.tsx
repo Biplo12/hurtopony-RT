@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/5 bg-background backdrop-blur-lg">
+    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/5 bg-background">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 md:px-6">
         <Logo />
 

@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <Suspense>
-            {/* <Header /> */}
+            <Header />
             {children}
           </Suspense>
         </ReactQueryProvider>
