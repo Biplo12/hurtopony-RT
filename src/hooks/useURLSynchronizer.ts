@@ -40,7 +40,7 @@ export const useURLSynchronizer = () => {
     if (sortBy && sortDirection) {
       setSortOptions({
         sortBy: sortBy as SortOption,
-        sortDirection: sortDirection as "ASC" | "DESC",
+        sortDirection: sortDirection as "asc" | "desc",
       });
     }
 

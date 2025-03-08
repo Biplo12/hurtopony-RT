@@ -13,7 +13,7 @@ interface MoviesStore {
   searchQuery: string;
   sortOptions: {
     sortBy: SortOption;
-    sortDirection: "ASC" | "DESC";
+    sortDirection: "asc" | "desc";
   };
   pagination: {
     currentPage: number;
@@ -29,7 +29,7 @@ interface MoviesStoreActions {
   setSearchQuery: (query: string) => void;
   setSortOptions: (sortOptions: {
     sortBy: SortOption;
-    sortDirection: "ASC" | "DESC";
+    sortDirection: "asc" | "desc";
   }) => void;
   setPagination: (pagination: {
     currentPage: number;
@@ -57,8 +57,8 @@ const initialState: MoviesStore = {
   selectedCategoryId: null,
   searchQuery: "",
   sortOptions: {
-    sortBy: "POPULARITY",
-    sortDirection: "DESC",
+    sortBy: "popularity",
+    sortDirection: "desc",
   },
   pagination: {
     currentPage: 1,
@@ -101,7 +101,7 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
     },
     setSortOptions: (sortOptions: {
       sortBy: SortOption;
-      sortDirection: "ASC" | "DESC";
+      sortDirection: "asc" | "desc";
     }) => {
       updateURLParams({
         sortBy: sortOptions.sortBy,

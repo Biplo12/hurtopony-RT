@@ -8,7 +8,7 @@ const DirectionButton: React.FC = () => {
   const handleSortDirection = () => {
     setSortOptions({
       ...sortOptions,
-      sortDirection: sortOptions.sortDirection === "ASC" ? "DESC" : "ASC",
+      sortDirection: sortOptions.sortDirection === "asc" ? "desc" : "asc",
     });
   };
 
@@ -17,12 +17,12 @@ const DirectionButton: React.FC = () => {
       onClick={handleSortDirection}
       className="rounded-md border border-white/5 bg-secondary/50 p-1.5 transition-colors hover:bg-secondary"
       aria-label={
-        sortOptions.sortDirection === "ASC"
+        sortOptions.sortDirection === "asc"
           ? "Sort descending"
           : "Sort ascending"
       }
     >
-      {sortOptions.sortDirection === "ASC" ? (
+      {sortOptions.sortDirection === "asc" ? (
         <SortAsc className="h-4 w-4" />
       ) : (
         <SortDesc className="h-4 w-4" />

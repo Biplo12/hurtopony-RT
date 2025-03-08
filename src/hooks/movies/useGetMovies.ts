@@ -15,7 +15,7 @@ interface GetMoviesParams {
   searchQuery: string;
   sortOptions: {
     sortBy: SortOption;
-    sortDirection: "ASC" | "DESC";
+    sortDirection: "asc" | "desc";
   };
   currentPage: number;
 }
@@ -37,7 +37,7 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
 
       if (params.sortOptions.sortBy) {
         const sortOrder =
-          params.sortOptions.sortDirection === "ASC" ? "asc" : "desc";
+          params.sortOptions.sortDirection === "asc" ? "asc" : "desc";
 
         urlParams.set("sort_by", `${params.sortOptions.sortBy}.${sortOrder}`);
       }

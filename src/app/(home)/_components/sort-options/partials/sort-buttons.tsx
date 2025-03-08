@@ -3,6 +3,12 @@ import { cn } from "~/lib/utils";
 import { moviesStore } from "~/store/movies-store";
 import { type SortOption } from "~/interfaces/IMovie";
 
+interface ISortOptionsMap {
+  label: string;
+  value: SortOption;
+  shortLabel: string;
+}
+
 const sortOptionsMap = [
   {
     label: "Popularity",
@@ -21,7 +27,7 @@ const sortOptionsMap = [
     label: "Title",
     value: "title",
   },
-];
+] as ISortOptionsMap[];
 
 const SortButtons: React.FC = () => {
   const { sortOptions, setSortOptions } = moviesStore((state) => state);
@@ -38,7 +44,7 @@ const SortButtons: React.FC = () => {
       {sortOptionsMap.map((option) => (
         <button
           key={option.value}
-          onClick={() => handleSort(option.value as SortOption)}
+          onClick={() => handleSort(option.value)}
           className={cn(
             "min-w-[60px] whitespace-nowrap px-2 py-1.5 text-[12px] transition-colors md:px-3 md:text-xs",
             sortOptions.sortBy === option.value
