@@ -11,6 +11,8 @@ export async function GET(request: Request) {
   const urlParams = new URLSearchParams();
   urlParams.set("api_key", MOVIE_DB_API_KEY);
   urlParams.set("page", page);
+  urlParams.set("include_adult", "false");
+  urlParams.set("include_video", "false");
 
   if (searchParams.get("sort_by")) {
     urlParams.set("sort_by", searchParams.get("sort_by") ?? "");

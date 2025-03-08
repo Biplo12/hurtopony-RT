@@ -16,7 +16,7 @@ const MovieDetailsSkeleton: React.FC = () => {
       {/* Hero Section Skeleton */}
       <div className="relative h-[60vh] w-full overflow-hidden sm:h-[65vh] md:h-[70vh] lg:h-[75vh]">
         <Skeleton className="h-full w-full" />
-        <div className="absolute bottom-0 left-0 right-0 flex flex-col px-4 pb-6 md:container sm:pb-10 md:mx-auto md:flex-row md:items-end md:gap-8 md:px-6 md:pb-12 lg:pb-16">
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col px-4 pb-6 md:container sm:pb-10 md:mx-auto md:flex-row md:items-end md:gap-8 md:px-6 md:pb-12">
           {/* Poster Skeleton */}
           <div className="neo-card relative mx-auto w-36 flex-shrink-0 overflow-hidden rounded-xl shadow-2xl sm:w-44 md:mx-0 md:w-56 lg:w-64">
             <Skeleton className="aspect-[2/3] w-full" />

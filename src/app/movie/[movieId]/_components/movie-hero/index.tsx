@@ -31,7 +31,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({ movie }) => {
 
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
 
-      <div className="absolute bottom-0 left-0 right-0 flex flex-col px-4 pb-6 md:container sm:pb-10 md:mx-auto md:flex-row md:items-end md:gap-8 md:px-6 md:pb-12 lg:pb-16">
+      <div className="absolute bottom-0 left-0 right-0 flex flex-col px-4 pb-6 md:container sm:pb-10 md:mx-auto md:flex-row md:items-end md:gap-8 md:px-6 md:pb-12">
         <MoviePoster movie={movie} />
         <MovieInfo movie={movie} />
       </div>

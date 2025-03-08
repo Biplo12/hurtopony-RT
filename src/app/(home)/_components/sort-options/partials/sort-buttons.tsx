@@ -35,7 +35,7 @@ const SortButtons: React.FC = () => {
   const handleSort = (option: SortOption) => {
     setSortOptions({
       sortBy: option,
-      sortDirection: "DESC",
+      sortDirection: "desc",
     });
   };
 
