@@ -95,7 +95,7 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
         searchQuery: query,
         pagination: {
           ...state.pagination,
-          currentPage: 1,
+          currentPage: query ? 1 : state.pagination.currentPage,
         },
       }));
     },
