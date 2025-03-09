@@ -15,6 +15,20 @@ interface MoviesStore {
     sortBy: SortOption;
     sortDirection: "asc" | "desc";
   };
+  advancedFilters: {
+    runtime: {
+      min: number;
+      max: number;
+    };
+    releaseDate: {
+      min: string;
+      max: string;
+    };
+    rating: {
+      min: number;
+      max: number;
+    };
+  };
   pagination: {
     currentPage: number;
     totalPages: number;
@@ -59,6 +73,20 @@ const initialState: MoviesStore = {
   sortOptions: {
     sortBy: "popularity",
     sortDirection: "desc",
+  },
+  advancedFilters: {
+    runtime: {
+      min: 0,
+      max: 0,
+    },
+    releaseDate: {
+      min: "",
+      max: "",
+    },
+    rating: {
+      min: 0,
+      max: 0,
+    },
   },
   pagination: {
     currentPage: 1,
@@ -133,6 +161,22 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
           currentPage: page,
         },
       }));
+    },
+    setAdvancedFilters: (advancedFilters: {
+      runtime: {
+        min: number;
+        max: number;
+      };
+      releaseDate: {
+        min: string;
+        max: string;
+      };
+      rating: {
+        min: number;
+        max: number;
+      };
+    }) => {
+      set({ advancedFilters });
     },
   })),
 );

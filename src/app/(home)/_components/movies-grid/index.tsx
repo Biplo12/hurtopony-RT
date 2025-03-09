@@ -4,8 +4,8 @@ import React from "react";
 import MovieCard from "./partials/movie-card";
 import { useGetMovies } from "~/hooks/movies/useGetMovies";
 import MovieCardSkeleton from "./partials/movie-card-skeleton";
-import PaginationControls from "~/components/pagination-controls";
 import { moviesStore } from "~/store/movies-store";
+import PaginationControls from "../pagination-controls";
 
 interface MoviesGridProps {
   isParamsLoading?: boolean;
