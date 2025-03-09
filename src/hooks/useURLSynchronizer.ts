@@ -171,6 +171,10 @@ export const useURLSynchronizer = () => {
     }
 
     window.history.replaceState({}, "", url);
+
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("lastHomePageUrl", url.toString());
+    }
   }, [
     searchQuery,
     sortOptions,
