@@ -57,24 +57,24 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-medium">
+    <div className="space-y-3">
+      <h3 className="mb-2 flex items-center gap-2 text-sm font-medium">
         <Calendar className="text-neon-pink h-4 w-4" />
         Release Year
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div className="space-y-1.5">
           <Label
             htmlFor="minReleaseDate"
-            className="block text-xs text-muted-foreground"
+            className="text-xs text-muted-foreground"
           >
             Min Year
           </Label>
           <Select value={minYear} onValueChange={handleMinYearChange}>
-            <SelectTrigger id="minReleaseDate">
+            <SelectTrigger id="minReleaseDate" className="h-9">
               <SelectValue placeholder="Any" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-h-[300px]">
               <SelectItem value="any">Any</SelectItem>
               {years.map((year) => (
                 <SelectItem key={`min-${year}`} value={year}>
@@ -87,15 +87,15 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
         <div className="space-y-1.5">
           <Label
             htmlFor="maxReleaseDate"
-            className="block text-xs text-muted-foreground"
+            className="text-xs text-muted-foreground"
           >
             Max Year
           </Label>
           <Select value={maxYear} onValueChange={handleMaxYearChange}>
-            <SelectTrigger id="maxReleaseDate">
+            <SelectTrigger id="maxReleaseDate" className="h-9">
               <SelectValue placeholder="Any" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-h-[300px]">
               <SelectItem value="any">Any</SelectItem>
               {years.map((year) => (
                 <SelectItem key={`max-${year}`} value={year}>

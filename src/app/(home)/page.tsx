@@ -24,7 +24,7 @@ export default function HomePage() {
       </div>
 
       <CategoryFilters isParamsLoading={isParamsLoading} />
-      <div className="flex w-full justify-between">
+      <div className="mb-6 flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <SortOptions isParamsLoading={isParamsLoading} />
         <ShowFiltersButton
           setShowAdvancedFilters={setShowAdvancedFilters}

@@ -42,9 +42,9 @@ const AdvancedFilters: React.FC = () => {
   };
 
   return (
-    <div className="mb-6 animate-fade-in rounded-xl border border-border/40 bg-card/30 p-6">
+    <div className="mb-6 animate-fade-in rounded-xl border border-border/40 bg-card/30 p-4 sm:p-6">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
           <RuntimeFilter filters={filters} setFilters={setFilters} />
           <ReleaseYearFilter filters={filters} setFilters={setFilters} />
           <RatingFilter filters={filters} setFilters={setFilters} />

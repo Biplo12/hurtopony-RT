@@ -19,17 +19,14 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
   const { rating } = filters;
 
   return (
-    <div className="space-y-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-medium">
+    <div className="space-y-3">
+      <h3 className="mb-2 flex items-center gap-2 text-sm font-medium">
         <Star className="text-neon-pink h-4 w-4" />
         Rating
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div className="space-y-1.5">
-          <Label
-            htmlFor="minRating"
-            className="block text-xs text-muted-foreground"
-          >
+          <Label htmlFor="minRating" className="text-xs text-muted-foreground">
             Min
           </Label>
           <Input
@@ -37,26 +34,24 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
             type="number"
             min="0"
             max="10"
+            step="0.1"
             placeholder="Min"
-            value={rating.min}
+            value={rating.min || ""}
             onChange={(e) =>
               setFilters({
                 ...filters,
                 rating: {
                   ...filters.rating,
-                  min: Number(e.target.value),
+                  min: Number(e.target.value) || 0,
                 },
               })
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
+            className="h-9"
           />
         </div>
 
         <div className="space-y-1.5">
-          <Label
-            htmlFor="maxRating"
-            className="block text-xs text-muted-foreground"
-          >
+          <Label htmlFor="maxRating" className="text-xs text-muted-foreground">
             Max
           </Label>
           <Input
@@ -64,18 +59,19 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
             type="number"
             min="0"
             max="10"
+            step="0.1"
             placeholder="Max"
-            value={rating.max}
+            value={rating.max || ""}
             onChange={(e) =>
               setFilters({
                 ...filters,
                 rating: {
                   ...filters.rating,
-                  max: Number(e.target.value),
+                  max: Number(e.target.value) || 0,
                 },
               })
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
+            className="h-9"
           />
         </div>
       </div>

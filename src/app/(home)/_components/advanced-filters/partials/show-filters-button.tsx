@@ -13,17 +13,18 @@ const ShowFiltersButton: React.FC<ShowFiltersButtonProps> = ({
   showAdvancedFilters,
   isParamsLoading = false,
 }) => {
-  if (isParamsLoading) return <Skeleton className="h-9 w-36 rounded-md" />;
+  if (isParamsLoading)
+    return <Skeleton className="h-9 w-full rounded-md sm:w-36" />;
 
   return (
     <Button
       variant="outline"
       size="sm"
       onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-      className="gap-2"
+      className="w-full justify-center gap-2 sm:w-auto"
     >
       <SlidersHorizontal className="h-4 w-4" />
-      {showAdvancedFilters ? "Hide Filters" : "Advanced Filters"}
+      <span>{showAdvancedFilters ? "Hide Filters" : "Advanced Filters"}</span>
     </Button>
   );
 };

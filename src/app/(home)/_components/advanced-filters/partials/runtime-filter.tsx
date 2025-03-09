@@ -22,17 +22,14 @@ const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
   const { runtime } = filters;
 
   return (
-    <div className="space-y-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-medium">
+    <div className="space-y-3">
+      <h3 className="mb-2 flex items-center gap-2 text-sm font-medium">
         <Clock className="text-neon-blue h-4 w-4" />
         Runtime (minutes)
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div className="space-y-1.5">
-          <Label
-            htmlFor="minRuntime"
-            className="block text-xs text-muted-foreground"
-          >
+          <Label htmlFor="minRuntime" className="text-xs text-muted-foreground">
             Min
           </Label>
           <Input
@@ -41,22 +38,19 @@ const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
             min="0"
             max="300"
             placeholder="Min"
-            value={runtime.min}
+            value={runtime.min || ""}
             onChange={(e) =>
               setFilters({
                 ...filters,
-                runtime: { ...runtime, min: Number(e.target.value) },
+                runtime: { ...runtime, min: Number(e.target.value) || 0 },
               })
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
+            className="h-9"
           />
         </div>
 
         <div className="space-y-1.5">
-          <Label
-            htmlFor="maxRuntime"
-            className="block text-xs text-muted-foreground"
-          >
+          <Label htmlFor="maxRuntime" className="text-xs text-muted-foreground">
             Max
           </Label>
           <Input
@@ -65,14 +59,14 @@ const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
             min="0"
             max="300"
             placeholder="Max"
-            value={runtime.max}
+            value={runtime.max || ""}
             onChange={(e) =>
               setFilters({
                 ...filters,
-                runtime: { ...runtime, max: Number(e.target.value) },
+                runtime: { ...runtime, max: Number(e.target.value) || 0 },
               })
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
+            className="h-9"
           />
         </div>
       </div>

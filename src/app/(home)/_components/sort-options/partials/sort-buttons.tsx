@@ -40,13 +40,13 @@ const SortButtons: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap overflow-hidden rounded-lg border border-white/5">
+    <div className="hide-scrollbar flex overflow-x-auto rounded-lg border border-white/5">
       {sortOptionsMap.map((option) => (
         <button
           key={option.value}
           onClick={() => handleSort(option.value)}
           className={cn(
-            "min-w-[60px] whitespace-nowrap px-2 py-1.5 text-[12px] transition-colors md:px-3 md:text-xs",
+            "min-w-[60px] whitespace-nowrap px-2 py-1.5 text-[11px] transition-colors md:min-w-[70px] md:px-3 md:text-xs",
             sortOptions.sortBy === option.value
               ? "bg-accent text-accent-foreground"
               : "bg-secondary hover:bg-secondary/80",

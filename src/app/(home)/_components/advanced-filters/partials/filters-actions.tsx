@@ -27,7 +27,9 @@ const FilterActions: React.FC<FilterActionsProps> = ({
   const hasActiveFilters = useMemo(() => {
     const mergedFilters = { ...filters, ...advancedFilters };
     return Object.values(mergedFilters).some((filter) => {
-      return Object.values(filter).some((value) => value !== 0);
+      return Object.values(filter).some((value) =>
+        typeof value === "number" ? value !== 0 : value !== "",
+      );
     });
   }, [filters, advancedFilters]);
 
@@ -45,14 +47,14 @@ const FilterActions: React.FC<FilterActionsProps> = ({
   };
 
   return (
-    <div className="mt-8 flex justify-end gap-3">
+    <div className="mt-6 flex flex-col justify-end gap-2 sm:mt-8 sm:flex-row sm:gap-3">
       <Button
         type="button"
         onClick={onClearFilters}
         variant={hasActiveFilters ? "destructive" : "outline"}
         size="sm"
         className={cn(
-          "gap-1.5",
+          "w-full gap-1.5 sm:w-auto",
           !hasActiveFilters && "cursor-not-allowed opacity-50",
         )}
         disabled={!hasActiveFilters}
@@ -65,7 +67,7 @@ const FilterActions: React.FC<FilterActionsProps> = ({
         type="submit"
         variant="default"
         size="sm"
-        className="gap-1.5 shadow-sm"
+        className="w-full gap-1.5 shadow-sm sm:w-auto"
       >
         <Check className="h-4 w-4" />
         Apply Filters
