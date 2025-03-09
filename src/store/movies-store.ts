@@ -51,6 +51,20 @@ interface MoviesStoreActions {
     totalResults: number;
   }) => void;
   setCurrentPage: (page: number) => void;
+  setAdvancedFilters: (advancedFilters: {
+    runtime: {
+      min: number;
+      max: number;
+    };
+    releaseDate: {
+      min: number;
+      max: number;
+    };
+    rating: {
+      min: number;
+      max: number;
+    };
+  }) => void;
 }
 
 const updateURLParams = (params: Record<string, string | null>) => {

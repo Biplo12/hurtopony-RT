@@ -4,6 +4,7 @@ import CategoryFilters from "./_components/category-filters";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
 import { useURLSynchronizer } from "~/hooks/useURLSynchronizer";
+import AdvancedFilters from "./_components/advanced-filters";
 
 export default function HomePage() {
   const { isLoading: isParamsLoading } = useURLSynchronizer();
@@ -20,7 +21,11 @@ export default function HomePage() {
       </div>
 
       <CategoryFilters isParamsLoading={isParamsLoading} />
-      <SortOptions isParamsLoading={isParamsLoading} />
+      <div className="flex w-full justify-between">
+        <SortOptions isParamsLoading={isParamsLoading} />
+        <AdvancedFilters />
+      </div>
+
       <MoviesGrid isParamsLoading={isParamsLoading} />
     </main>
   );
