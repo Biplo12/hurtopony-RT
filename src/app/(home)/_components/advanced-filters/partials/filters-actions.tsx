@@ -39,6 +39,7 @@ const FilterActions: React.FC<FilterActionsProps> = ({
       releaseDate: { min: "", max: "" },
       rating: { min: 0, max: 0 },
     });
+
     setAdvancedFilters({
       runtime: { min: 0, max: 0 },
       releaseDate: { min: "", max: "" },

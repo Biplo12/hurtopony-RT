@@ -190,16 +190,12 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
         max: number;
       };
     }) => {
-      const url = new URL(window.location.href);
-      const currentPageFromUrl = url.searchParams.get("page")
-        ? parseInt(url.searchParams.get("page")!)
-        : null;
-
       set((state) => ({
         advancedFilters,
         pagination: {
           ...state.pagination,
-          currentPage: currentPageFromUrl ?? state.pagination.currentPage ?? 1,
+          currentPage:
+            state.pagination.currentPage > 1 ? state.pagination.currentPage : 1,
         },
       }));
     },
