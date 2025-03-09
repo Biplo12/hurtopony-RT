@@ -1,18 +1,17 @@
-/** @type {import("eslint").Linter.Config} */
-const config = {
+{
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": true
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint", "@tanstack/query"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked"
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:@tanstack/query/recommended"
   ],
   "rules": {
+    "@tanstack/query/exhaustive-deps": "error",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
@@ -39,4 +38,3 @@ const config = {
     ]
   }
 }
-module.exports = config;

@@ -1,29 +1,69 @@
-# Create T3 App
+# Movie Explorer
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+An interactive web application for browsing and discovering movies, with advanced filtering, sorting, and pagination capabilities.
 
-## What's next? How do I make an app with this?
+## Getting Started
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+### Requirements
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Node.js (version 20.x or newer)
+- yarn
+- The Movie Database API key (TMDB)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+### Installation
 
-## Learn More
+1. Clone the repository:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+git clone https://github.com/Biplo12/hurtopony-RT.git
+cd movie-explorer
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+2. Install dependencies:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+yarn install
+```
 
-## How do I deploy this?
+3. Set up environment variables:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Create a `.env` file in the root directory and add your TMDB API key:
+
+```
+THE_MOVIE_DB_API_KEY=your_api_key_here
+```
+
+You can obtain an API key by registering at [https://www.themoviedb.org/](https://www.themoviedb.org/) and going to your account settings.
+
+4. Run the development server:
+
+```bash
+yarn dev
+```
+
+5. Open your browser and navigate to `http://localhost:3000`
+
+### Building for production
+
+```bash
+yarn build
+yarn start
+```
+
+## Features
+
+- Browse movies with detailed information
+- Advanced filtering options (by category, year, runtime, rating)
+- Search functionality
+- Responsive design
+- Pagination with preserved state on refresh
+- Sort movies by different criteria
+
+## Technologies
+
+- Next.js
+- React
+- TypeScript
+- Zustand (State Management)
+- Tailwind CSS
+- React Query
