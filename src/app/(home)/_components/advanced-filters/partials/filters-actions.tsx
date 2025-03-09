@@ -5,20 +5,38 @@ import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
 interface FilterActionsProps {
-  onApplyFilters: () => void;
+  filters: {
+    runtime: { min: number; max: number };
+    releaseDate: { min: string; max: string };
+    rating: { min: number; max: number };
+  };
+  setFilters: (filters: {
+    runtime: { min: number; max: number };
+    releaseDate: { min: string; max: string };
+    rating: { min: number; max: number };
+  }) => void;
 }
 
-const FilterActions: React.FC<FilterActionsProps> = ({ onApplyFilters }) => {
+const FilterActions: React.FC<FilterActionsProps> = ({
+  filters,
+  setFilters,
+}) => {
   const { setAdvancedFilters } = moviesStore((state) => state);
   const advancedFilters = moviesStore((state) => state.advancedFilters);
 
   const hasActiveFilters = useMemo(() => {
-    return Object.values(advancedFilters).some((filter) => {
+    const mergedFilters = { ...filters, ...advancedFilters };
+    return Object.values(mergedFilters).some((filter) => {
       return Object.values(filter).some((value) => value !== 0);
     });
-  }, [advancedFilters]);
+  }, [filters, advancedFilters]);
 
   const onClearFilters = () => {
+    setFilters({
+      runtime: { min: 0, max: 0 },
+      releaseDate: { min: "", max: "" },
+      rating: { min: 0, max: 0 },
+    });
     setAdvancedFilters({
       runtime: { min: 0, max: 0 },
       releaseDate: { min: "", max: "" },
@@ -42,9 +60,9 @@ const FilterActions: React.FC<FilterActionsProps> = ({ onApplyFilters }) => {
         <X className="h-4 w-4" />
         Clear Filters
       </Button>
+
       <Button
-        type="button"
-        onClick={onApplyFilters}
+        type="submit"
         variant="default"
         size="sm"
         className="gap-1.5 shadow-sm"

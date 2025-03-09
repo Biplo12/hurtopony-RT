@@ -1,9 +1,17 @@
 import { Clock } from "lucide-react";
-import { moviesStore } from "~/store/movies-store";
 
-const RuntimeFilter: React.FC = () => {
-  const { advancedFilters, setAdvancedFilters } = moviesStore((state) => state);
-  const { runtime } = advancedFilters;
+interface RuntimeFilterProps {
+  filters: {
+    runtime: { min: number; max: number };
+  };
+  setFilters: (filters: { runtime: { min: number; max: number } }) => void;
+}
+
+const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
+  filters,
+  setFilters,
+}) => {
+  const { runtime } = filters;
 
   return (
     <div className="space-y-4">
@@ -27,8 +35,8 @@ const RuntimeFilter: React.FC = () => {
             placeholder="Min"
             value={runtime.min}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 runtime: { ...runtime, min: Number(e.target.value) },
               })
             }
@@ -51,8 +59,8 @@ const RuntimeFilter: React.FC = () => {
             placeholder="Max"
             value={runtime.max}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 runtime: { ...runtime, max: Number(e.target.value) },
               })
             }

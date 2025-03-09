@@ -1,10 +1,17 @@
 import { Calendar } from "lucide-react";
-import { moviesStore } from "~/store/movies-store";
 
-const ReleaseYearFilter: React.FC = () => {
-  const { advancedFilters, setAdvancedFilters } = moviesStore((state) => state);
+interface ReleaseYearFilterProps {
+  filters: {
+    releaseDate: { min: string; max: string };
+  };
+  setFilters: (filters: { releaseDate: { min: string; max: string } }) => void;
+}
 
-  const { releaseDate } = advancedFilters;
+const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
+  filters,
+  setFilters,
+}) => {
+  const { releaseDate } = filters;
 
   return (
     <div className="space-y-4">
@@ -28,10 +35,10 @@ const ReleaseYearFilter: React.FC = () => {
             placeholder="YYYY"
             value={releaseDate.min}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 releaseDate: {
-                  ...advancedFilters.releaseDate,
+                  ...filters.releaseDate,
                   min: e.target.value,
                 },
               })
@@ -54,10 +61,10 @@ const ReleaseYearFilter: React.FC = () => {
             placeholder="YYYY"
             value={releaseDate.max}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 releaseDate: {
-                  ...advancedFilters.releaseDate,
+                  ...filters.releaseDate,
                   max: e.target.value,
                 },
               })

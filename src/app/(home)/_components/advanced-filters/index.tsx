@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterActions from "./partials/filters-actions";
 import RatingFilter from "./partials/rating-filter";
 import ReleaseYearFilter from "./partials/release-year-filter";
@@ -6,30 +6,70 @@ import RuntimeFilter from "./partials/runtime-filter";
 import { moviesStore } from "~/store/movies-store";
 
 const AdvancedFilters = () => {
-  const { setAdvancedFilters } = moviesStore((state) => state);
+  const { setAdvancedFilters, advancedFilters } = moviesStore((state) => state);
+
+  const [filters, setFilters] = useState<{
+    runtime: { min: number; max: number };
+    releaseDate: { min: string; max: string };
+    rating: { min: number; max: number };
+  }>({
+    runtime: { min: 0, max: 0 },
+    releaseDate: { min: "", max: "" },
+    rating: { min: 0, max: 0 },
+  });
+
+  useEffect(() => {
+    if (advancedFilters.runtime.min > 0 || advancedFilters.runtime.max > 0) {
+      console.log("runtime", advancedFilters.runtime);
+      setFilters({
+        ...filters,
+        runtime: {
+          min: advancedFilters.runtime.min,
+          max: advancedFilters.runtime.max,
+        },
+      });
+    }
+
+    if (
+      advancedFilters.releaseDate.min !== "" ||
+      advancedFilters.releaseDate.max !== ""
+    ) {
+      setFilters({
+        ...filters,
+        releaseDate: {
+          min: advancedFilters.releaseDate.min,
+          max: advancedFilters.releaseDate.max,
+        },
+      });
+    }
+
+    if (advancedFilters.rating.min > 0 || advancedFilters.rating.max > 0) {
+      setFilters({
+        ...filters,
+        rating: {
+          min: advancedFilters.rating.min,
+          max: advancedFilters.rating.max,
+        },
+      });
+    }
+  }, [advancedFilters]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAdvancedFilters({
-      runtime: { min: 0, max: 0 },
-      releaseDate: { min: "", max: "" },
-      rating: { min: 0, max: 0 },
-    });
-  };
 
-  const onApplyFilters = () => {
-    console.log("onApplyFilters");
+    setAdvancedFilters(filters);
   };
 
   return (
     <div className="mb-6 animate-fade-in rounded-xl border border-border/40 bg-card/30 p-6">
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <RuntimeFilter />
-          <ReleaseYearFilter />
-          <RatingFilter />
+          <RuntimeFilter filters={filters} setFilters={setFilters} />
+          <ReleaseYearFilter filters={filters} setFilters={setFilters} />
+          <RatingFilter filters={filters} setFilters={setFilters} />
         </div>
-        <FilterActions onApplyFilters={onApplyFilters} />
+
+        <FilterActions filters={filters} setFilters={setFilters} />
       </form>
     </div>
   );

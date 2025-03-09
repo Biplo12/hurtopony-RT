@@ -28,16 +28,13 @@ const MovieDetailsSkeleton: React.FC = () => {
             <Skeleton className="h-8 w-64 sm:h-9 md:h-10 md:w-96" />
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-start">
               <div className="flex items-center gap-1.5">
-                <Skeleton className="h-4 w-4 rounded-full" />
                 <Skeleton className="h-4 w-12" />
               </div>
               <div className="flex items-center gap-1.5">
-                <Skeleton className="h-4 w-4 rounded-full" />
                 <Skeleton className="h-4 w-12" />
               </div>
               <div className="flex items-center gap-1.5">
-                <Skeleton className="h-4 w-4 rounded-full" />
-                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-4 w-32" />
               </div>
             </div>
             <div className="mt-1 flex flex-wrap justify-center gap-2 md:justify-start">

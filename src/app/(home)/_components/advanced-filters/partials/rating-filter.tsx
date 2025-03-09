@@ -1,9 +1,14 @@
 import { Star } from "lucide-react";
-import { moviesStore } from "~/store/movies-store";
 
-const RatingFilter: React.FC = () => {
-  const { advancedFilters, setAdvancedFilters } = moviesStore((state) => state);
-  const { rating } = advancedFilters;
+interface RatingFilterProps {
+  filters: {
+    rating: { min: number; max: number };
+  };
+  setFilters: (filters: { rating: { min: number; max: number } }) => void;
+}
+
+const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
+  const { rating } = filters;
 
   return (
     <div className="space-y-4">
@@ -27,10 +32,10 @@ const RatingFilter: React.FC = () => {
             placeholder="Min"
             value={rating.min}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 rating: {
-                  ...advancedFilters.rating,
+                  ...filters.rating,
                   min: Number(e.target.value),
                 },
               })
@@ -54,10 +59,10 @@ const RatingFilter: React.FC = () => {
             placeholder="Max"
             value={rating.max}
             onChange={(e) =>
-              setAdvancedFilters({
-                ...advancedFilters,
+              setFilters({
+                ...filters,
                 rating: {
-                  ...advancedFilters.rating,
+                  ...filters.rating,
                   max: Number(e.target.value),
                 },
               })
