@@ -19,39 +19,20 @@ const AdvancedFilters = () => {
   });
 
   useEffect(() => {
-    if (advancedFilters.runtime.min > 0 || advancedFilters.runtime.max > 0) {
-      console.log("runtime", advancedFilters.runtime);
-      setFilters({
-        ...filters,
-        runtime: {
-          min: advancedFilters.runtime.min,
-          max: advancedFilters.runtime.max,
-        },
-      });
-    }
-
-    if (
-      advancedFilters.releaseDate.min !== "" ||
-      advancedFilters.releaseDate.max !== ""
-    ) {
-      setFilters({
-        ...filters,
-        releaseDate: {
-          min: advancedFilters.releaseDate.min,
-          max: advancedFilters.releaseDate.max,
-        },
-      });
-    }
-
-    if (advancedFilters.rating.min > 0 || advancedFilters.rating.max > 0) {
-      setFilters({
-        ...filters,
-        rating: {
-          min: advancedFilters.rating.min,
-          max: advancedFilters.rating.max,
-        },
-      });
-    }
+    setFilters({
+      runtime: {
+        min: advancedFilters.runtime.min,
+        max: advancedFilters.runtime.max,
+      },
+      releaseDate: {
+        min: advancedFilters.releaseDate.min,
+        max: advancedFilters.releaseDate.max,
+      },
+      rating: {
+        min: advancedFilters.rating.min,
+        max: advancedFilters.rating.max,
+      },
+    });
   }, [advancedFilters]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

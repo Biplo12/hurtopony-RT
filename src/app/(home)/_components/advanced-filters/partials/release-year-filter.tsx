@@ -2,9 +2,15 @@ import { Calendar } from "lucide-react";
 
 interface ReleaseYearFilterProps {
   filters: {
+    runtime: { min: number; max: number };
     releaseDate: { min: string; max: string };
+    rating: { min: number; max: number };
   };
-  setFilters: (filters: { releaseDate: { min: string; max: string } }) => void;
+  setFilters: (filters: {
+    runtime: { min: number; max: number };
+    releaseDate: { min: string; max: string };
+    rating: { min: number; max: number };
+  }) => void;
 }
 
 const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
