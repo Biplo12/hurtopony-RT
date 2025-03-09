@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { useMemo } from "react";
 
 interface ReleaseYearFilterProps {
   filters: {
@@ -29,12 +30,46 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
   const { releaseDate } = filters;
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1900 + 6 }, (_, i) =>
-    (1900 + i).toString(),
-  );
+
+  const yearOptions = useMemo(() => {
+    const decades = [];
+    const startDecade = 1880;
+    const endDecade = Math.floor(currentYear / 10) * 10;
+
+    for (let decade = startDecade; decade <= endDecade; decade += 10) {
+      decades.push(decade.toString());
+    }
+
+    const recentYears = [];
+    for (
+      let year = Math.max(endDecade, currentYear - 20);
+      year <= currentYear + 5;
+      year++
+    ) {
+      recentYears.push(year.toString());
+    }
+
+    return [...new Set([...decades, ...recentYears])].sort(
+      (a, b) => parseInt(a) - parseInt(b),
+    );
+  }, [currentYear]);
 
   const minYear = releaseDate.min ? extractYear(releaseDate.min) : "any";
   const maxYear = releaseDate.max ? extractYear(releaseDate.max) : "any";
+
+  const displayYearOptions = useMemo(() => {
+    const options = [...yearOptions];
+
+    if (minYear !== "any" && !options.includes(minYear)) {
+      options.push(minYear);
+    }
+
+    if (maxYear !== "any" && !options.includes(maxYear)) {
+      options.push(maxYear);
+    }
+
+    return options.sort((a, b) => parseInt(a) - parseInt(b));
+  }, [yearOptions, minYear, maxYear]);
 
   const handleMinYearChange = (value: string) => {
     setFilters({
@@ -76,7 +111,7 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
             </SelectTrigger>
             <SelectContent className="max-h-[300px]">
               <SelectItem value="any">Any</SelectItem>
-              {years.map((year) => (
+              {displayYearOptions.map((year) => (
                 <SelectItem key={`min-${year}`} value={year}>
                   {year}
                 </SelectItem>
@@ -97,7 +132,7 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
             </SelectTrigger>
             <SelectContent className="max-h-[300px]">
               <SelectItem value="any">Any</SelectItem>
-              {years.map((year) => (
+              {displayYearOptions.map((year) => (
                 <SelectItem key={`max-${year}`} value={year}>
                   {year}
                 </SelectItem>
