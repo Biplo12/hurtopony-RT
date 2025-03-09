@@ -5,7 +5,7 @@ import ReleaseYearFilter from "./partials/release-year-filter";
 import RuntimeFilter from "./partials/runtime-filter";
 import { moviesStore } from "~/store/movies-store";
 
-const AdvancedFilters = () => {
+const AdvancedFilters: React.FC = () => {
   const { setAdvancedFilters, advancedFilters } = moviesStore((state) => state);
 
   const [filters, setFilters] = useState<{

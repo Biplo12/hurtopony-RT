@@ -1,4 +1,13 @@
 import { Calendar } from "lucide-react";
+import { extractYear, formatDateString } from "~/lib/formatters";
+import { Label } from "~/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 interface ReleaseYearFilterProps {
   filters: {
@@ -19,6 +28,34 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
 }) => {
   const { releaseDate } = filters;
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1900 + 6 }, (_, i) =>
+    (1900 + i).toString(),
+  );
+
+  const minYear = releaseDate.min ? extractYear(releaseDate.min) : "any";
+  const maxYear = releaseDate.max ? extractYear(releaseDate.max) : "any";
+
+  const handleMinYearChange = (value: string) => {
+    setFilters({
+      ...filters,
+      releaseDate: {
+        ...filters.releaseDate,
+        min: value === "any" ? "" : formatDateString(value, true),
+      },
+    });
+  };
+
+  const handleMaxYearChange = (value: string) => {
+    setFilters({
+      ...filters,
+      releaseDate: {
+        ...filters.releaseDate,
+        max: value === "any" ? "" : formatDateString(value, false),
+      },
+    });
+  };
+
   return (
     <div className="space-y-4">
       <h3 className="mb-3 flex items-center gap-2 text-sm font-medium">
@@ -27,56 +64,46 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="minReleaseDate"
             className="block text-xs text-muted-foreground"
           >
             Min Year
-          </label>
-          <input
-            id="minReleaseDate"
-            type="number"
-            min="1900"
-            max="2100"
-            placeholder="YYYY"
-            value={releaseDate.min}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                releaseDate: {
-                  ...filters.releaseDate,
-                  min: e.target.value,
-                },
-              })
-            }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
-          />
+          </Label>
+          <Select value={minYear} onValueChange={handleMinYearChange}>
+            <SelectTrigger id="minReleaseDate">
+              <SelectValue placeholder="Any" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">Any</SelectItem>
+              {years.map((year) => (
+                <SelectItem key={`min-${year}`} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="maxReleaseDate"
             className="block text-xs text-muted-foreground"
           >
             Max Year
-          </label>
-          <input
-            id="maxReleaseDate"
-            type="number"
-            min="1900"
-            max="2100"
-            placeholder="YYYY"
-            value={releaseDate.max}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                releaseDate: {
-                  ...filters.releaseDate,
-                  max: e.target.value,
-                },
-              })
-            }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
-          />
+          </Label>
+          <Select value={maxYear} onValueChange={handleMaxYearChange}>
+            <SelectTrigger id="maxReleaseDate">
+              <SelectValue placeholder="Any" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">Any</SelectItem>
+              {years.map((year) => (
+                <SelectItem key={`max-${year}`} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>

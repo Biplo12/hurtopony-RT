@@ -77,17 +77,7 @@ export const useURLSynchronizer = () => {
       },
     };
 
-    const hasFilters =
-      updatedAdvancedFilters.runtime.min > 0 ||
-      updatedAdvancedFilters.runtime.max > 0 ||
-      updatedAdvancedFilters.releaseDate.min !== "" ||
-      updatedAdvancedFilters.releaseDate.max !== "" ||
-      updatedAdvancedFilters.rating.min > 0 ||
-      updatedAdvancedFilters.rating.max > 0;
-
-    if (hasFilters) {
-      setAdvancedFilters(updatedAdvancedFilters);
-    }
+    setAdvancedFilters(updatedAdvancedFilters);
 
     if (page) {
       setCurrentPage(currentPageValue);
@@ -132,7 +122,6 @@ export const useURLSynchronizer = () => {
       url.searchParams.delete("page");
     }
 
-    // Runtime
     if (advancedFilters.runtime.min > 0) {
       url.searchParams.set(
         "runtime.gte",
@@ -151,7 +140,6 @@ export const useURLSynchronizer = () => {
       url.searchParams.delete("runtime.lte");
     }
 
-    // Release date
     if (advancedFilters.releaseDate.min) {
       url.searchParams.set("release_date.gte", advancedFilters.releaseDate.min);
     } else {
@@ -164,7 +152,6 @@ export const useURLSynchronizer = () => {
       url.searchParams.delete("release_date.lte");
     }
 
-    // Rating
     if (advancedFilters.rating.min > 0) {
       url.searchParams.set(
         "vote_average.gte",

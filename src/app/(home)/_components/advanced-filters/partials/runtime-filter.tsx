@@ -1,4 +1,6 @@
 import { Clock } from "lucide-react";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 
 interface RuntimeFilterProps {
   filters: {
@@ -27,13 +29,13 @@ const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="minRuntime"
             className="block text-xs text-muted-foreground"
           >
             Min
-          </label>
-          <input
+          </Label>
+          <Input
             id="minRuntime"
             type="number"
             min="0"
@@ -51,13 +53,13 @@ const RuntimeFilter: React.FC<RuntimeFilterProps> = ({
         </div>
 
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="maxRuntime"
             className="block text-xs text-muted-foreground"
           >
             Max
-          </label>
-          <input
+          </Label>
+          <Input
             id="maxRuntime"
             type="number"
             min="0"

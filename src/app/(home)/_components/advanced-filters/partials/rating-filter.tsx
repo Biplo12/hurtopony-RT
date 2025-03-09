@@ -1,4 +1,6 @@
 import { Star } from "lucide-react";
+import { Label } from "~/components/ui/label";
+import { Input } from "~/components/ui/input";
 
 interface RatingFilterProps {
   filters: {
@@ -24,13 +26,13 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="minRating"
             className="block text-xs text-muted-foreground"
           >
             Min
-          </label>
-          <input
+          </Label>
+          <Input
             id="minRating"
             type="number"
             min="0"
@@ -51,13 +53,13 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ filters, setFilters }) => {
         </div>
 
         <div className="space-y-1.5">
-          <label
+          <Label
             htmlFor="maxRating"
             className="block text-xs text-muted-foreground"
           >
             Max
-          </label>
-          <input
+          </Label>
+          <Input
             id="maxRating"
             type="number"
             min="0"
