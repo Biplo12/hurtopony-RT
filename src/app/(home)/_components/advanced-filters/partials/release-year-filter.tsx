@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef } from "react";
 
 interface ReleaseYearFilterProps {
   filters: {
@@ -28,6 +28,7 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
   setFilters,
 }) => {
   const { releaseDate } = filters;
+  const initializedRef = useRef(false);
 
   const currentYear = new Date().getFullYear();
 
@@ -57,7 +58,26 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
   const minYear = releaseDate.min ? extractYear(releaseDate.min) : "any";
   const maxYear = releaseDate.max ? extractYear(releaseDate.max) : "any";
 
-  console.log({ minYear, maxYear });
+  useEffect(() => {
+    if (!initializedRef.current && (minYear !== "any" || maxYear !== "any")) {
+      initializedRef.current = true;
+      console.log("Initializing with values:", { minYear, maxYear });
+
+      setFilters({
+        ...filters,
+        releaseDate: {
+          min:
+            minYear !== "any"
+              ? formatDateString(minYear, true)
+              : releaseDate.min,
+          max:
+            maxYear !== "any"
+              ? formatDateString(maxYear, false)
+              : releaseDate.max,
+        },
+      });
+    }
+  }, [filters, setFilters, minYear, maxYear, releaseDate]);
 
   const displayYearOptions = useMemo(() => {
     const options = [...yearOptions];
