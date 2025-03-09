@@ -57,8 +57,8 @@ interface MoviesStoreActions {
       max: number;
     };
     releaseDate: {
-      min: number;
-      max: number;
+      min: string;
+      max: string;
     };
     rating: {
       min: number;
@@ -190,7 +190,18 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
         max: number;
       };
     }) => {
-      set({ advancedFilters });
+      const url = new URL(window.location.href);
+      const currentPageFromUrl = url.searchParams.get("page")
+        ? parseInt(url.searchParams.get("page")!)
+        : null;
+
+      set((state) => ({
+        advancedFilters,
+        pagination: {
+          ...state.pagination,
+          currentPage: currentPageFromUrl ?? state.pagination.currentPage ?? 1,
+        },
+      }));
     },
   })),
 );

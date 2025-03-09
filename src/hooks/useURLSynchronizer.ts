@@ -17,21 +17,32 @@ export const useURLSynchronizer = () => {
     sortOptions,
     selectedCategoryId,
     pagination,
+    advancedFilters,
     setSearchQuery,
     setSortOptions,
     setSelectedCategoryId,
     setCurrentPage,
+    setAdvancedFilters,
   } = moviesStore((state) => state);
 
   useEffect(() => {
     setIsLoading(true);
 
-    const { q, sortBy, sortDirection, category, page } = parse(
-      window.location.search,
-      {
-        ignoreQueryPrefix: true,
-      },
-    );
+    const {
+      q,
+      sortBy,
+      sortDirection,
+      category,
+      page,
+      "runtime.gte": runtimeGte,
+      "runtime.lte": runtimeLte,
+      "release_date.gte": releaseDateGte,
+      "release_date.lte": releaseDateLte,
+      "vote_average.gte": voteAverageGte,
+      "vote_average.lte": voteAverageLte,
+    } = parse(window.location.search, {
+      ignoreQueryPrefix: true,
+    });
 
     if (q) {
       setSearchQuery(q as string);
@@ -48,8 +59,38 @@ export const useURLSynchronizer = () => {
       setSelectedCategoryId(Number(category));
     }
 
+    const currentPageValue = page ? Number(page) : 1;
+
+    const updatedAdvancedFilters = {
+      ...advancedFilters,
+      runtime: {
+        min: runtimeGte ? Number(runtimeGte) : 0,
+        max: runtimeLte ? Number(runtimeLte) : 0,
+      },
+      releaseDate: {
+        min: releaseDateGte ? (releaseDateGte as string) : "",
+        max: releaseDateLte ? (releaseDateLte as string) : "",
+      },
+      rating: {
+        min: voteAverageGte ? Number(voteAverageGte) : 0,
+        max: voteAverageLte ? Number(voteAverageLte) : 0,
+      },
+    };
+
+    const hasFilters =
+      updatedAdvancedFilters.runtime.min > 0 ||
+      updatedAdvancedFilters.runtime.max > 0 ||
+      updatedAdvancedFilters.releaseDate.min !== "" ||
+      updatedAdvancedFilters.releaseDate.max !== "" ||
+      updatedAdvancedFilters.rating.min > 0 ||
+      updatedAdvancedFilters.rating.max > 0;
+
+    if (hasFilters) {
+      setAdvancedFilters(updatedAdvancedFilters);
+    }
+
     if (page) {
-      setCurrentPage(Number(page));
+      setCurrentPage(currentPageValue);
     }
 
     const timer = setTimeout(() => {
@@ -91,12 +132,64 @@ export const useURLSynchronizer = () => {
       url.searchParams.delete("page");
     }
 
+    // Runtime
+    if (advancedFilters.runtime.min > 0) {
+      url.searchParams.set(
+        "runtime.gte",
+        advancedFilters.runtime.min.toString(),
+      );
+    } else {
+      url.searchParams.delete("runtime.gte");
+    }
+
+    if (advancedFilters.runtime.max > 0) {
+      url.searchParams.set(
+        "runtime.lte",
+        advancedFilters.runtime.max.toString(),
+      );
+    } else {
+      url.searchParams.delete("runtime.lte");
+    }
+
+    // Release date
+    if (advancedFilters.releaseDate.min) {
+      url.searchParams.set("release_date.gte", advancedFilters.releaseDate.min);
+    } else {
+      url.searchParams.delete("release_date.gte");
+    }
+
+    if (advancedFilters.releaseDate.max) {
+      url.searchParams.set("release_date.lte", advancedFilters.releaseDate.max);
+    } else {
+      url.searchParams.delete("release_date.lte");
+    }
+
+    // Rating
+    if (advancedFilters.rating.min > 0) {
+      url.searchParams.set(
+        "vote_average.gte",
+        advancedFilters.rating.min.toString(),
+      );
+    } else {
+      url.searchParams.delete("vote_average.gte");
+    }
+
+    if (advancedFilters.rating.max > 0) {
+      url.searchParams.set(
+        "vote_average.lte",
+        advancedFilters.rating.max.toString(),
+      );
+    } else {
+      url.searchParams.delete("vote_average.lte");
+    }
+
     window.history.replaceState({}, "", url);
   }, [
     searchQuery,
     sortOptions,
     selectedCategoryId,
     pagination.currentPage,
+    advancedFilters,
     isLoading,
   ]);
 

@@ -29,6 +29,7 @@ export default function HomePage() {
         <ShowFiltersButton
           setShowAdvancedFilters={setShowAdvancedFilters}
           showAdvancedFilters={showAdvancedFilters}
+          isParamsLoading={isParamsLoading}
         />
       </div>
 

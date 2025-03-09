@@ -2,9 +2,8 @@ import { Star } from "lucide-react";
 import { moviesStore } from "~/store/movies-store";
 
 const RatingFilter: React.FC = () => {
-  const advancedFilters = moviesStore((state) => state.advancedFilters);
+  const { advancedFilters, setAdvancedFilters } = moviesStore((state) => state);
   const { rating } = advancedFilters;
-  const { setAdvancedFilters } = moviesStore((state) => state);
 
   return (
     <div className="space-y-4">
@@ -24,21 +23,22 @@ const RatingFilter: React.FC = () => {
             id="minRating"
             type="number"
             min="0"
-            max="300"
+            max="10"
             placeholder="Min"
-            value={rating.min || ""}
+            value={rating.min}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
                 rating: {
-                  ...rating,
-                  min: e.target.value ? parseInt(e.target.value) : 0,
+                  ...advancedFilters.rating,
+                  min: Number(e.target.value),
                 },
               })
             }
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
           />
         </div>
+
         <div className="space-y-1.5">
           <label
             htmlFor="maxRating"
@@ -50,15 +50,15 @@ const RatingFilter: React.FC = () => {
             id="maxRating"
             type="number"
             min="0"
-            max="300"
+            max="10"
             placeholder="Max"
-            value={rating.max || ""}
+            value={rating.max}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
                 rating: {
-                  ...rating,
-                  max: e.target.value ? parseInt(e.target.value) : 0,
+                  ...advancedFilters.rating,
+                  max: Number(e.target.value),
                 },
               })
             }

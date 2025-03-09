@@ -11,13 +11,27 @@ interface GetMoviesResponse {
 }
 
 interface GetMoviesParams {
-  selectedCategoryId: number | null;
-  searchQuery: string;
+  searchQuery?: string;
   sortOptions: {
     sortBy: SortOption;
     sortDirection: "asc" | "desc";
   };
-  currentPage: number;
+  selectedCategoryId?: number | null;
+  currentPage?: number;
+  advancedFilters?: {
+    runtime: {
+      min: number;
+      max: number;
+    };
+    releaseDate: {
+      min: string;
+      max: string;
+    };
+    rating: {
+      min: number;
+      max: number;
+    };
+  };
 }
 
 export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
@@ -44,6 +58,34 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
 
       if (params.currentPage) {
         urlParams.set("page", params.currentPage.toString());
+      }
+
+      if (params.advancedFilters) {
+        const { runtime, releaseDate, rating } = params.advancedFilters;
+
+        if (runtime.min > 0) {
+          urlParams.set("runtime.gte", runtime.min.toString());
+        }
+
+        if (runtime.max > 0) {
+          urlParams.set("runtime.lte", runtime.max.toString());
+        }
+
+        if (releaseDate.min) {
+          urlParams.set("release_date.gte", releaseDate.min);
+        }
+
+        if (releaseDate.max) {
+          urlParams.set("release_date.lte", releaseDate.max);
+        }
+
+        if (rating.min > 0) {
+          urlParams.set("vote_average.gte", rating.min.toString());
+        }
+
+        if (rating.max > 0) {
+          urlParams.set("vote_average.lte", rating.max.toString());
+        }
       }
     }
 
@@ -78,8 +120,13 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
  * @returns The movies
  */
 export const useGetMovies = () => {
-  const { searchQuery, sortOptions, selectedCategoryId, pagination } =
-    moviesStore((state) => state);
+  const {
+    searchQuery,
+    sortOptions,
+    selectedCategoryId,
+    pagination,
+    advancedFilters,
+  } = moviesStore((state) => state);
 
   return useQuery({
     queryKey: [
@@ -88,6 +135,7 @@ export const useGetMovies = () => {
       sortOptions,
       selectedCategoryId,
       pagination.currentPage,
+      advancedFilters,
     ],
     queryFn: () =>
       getMovies({
@@ -95,6 +143,7 @@ export const useGetMovies = () => {
         sortOptions,
         selectedCategoryId,
         currentPage: pagination.currentPage,
+        advancedFilters,
       }),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });

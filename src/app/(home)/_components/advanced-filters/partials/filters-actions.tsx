@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { X, Check } from "lucide-react";
 import { moviesStore } from "~/store/movies-store";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
-const FilterActions: React.FC = () => {
+interface FilterActionsProps {
+  onApplyFilters: () => void;
+}
+
+const FilterActions: React.FC<FilterActionsProps> = ({ onApplyFilters }) => {
   const { setAdvancedFilters } = moviesStore((state) => state);
   const advancedFilters = moviesStore((state) => state.advancedFilters);
-  const hasActiveFilters = Object.values(advancedFilters).some(
-    (filter) => filter.min !== 0 || filter.max !== 0,
-  );
+
+  const hasActiveFilters = useMemo(() => {
+    return Object.values(advancedFilters).some((filter) => {
+      return Object.values(filter).some((value) => value !== 0);
+    });
+  }, [advancedFilters]);
 
   const onClearFilters = () => {
     setAdvancedFilters({
-      ...advancedFilters,
       runtime: { min: 0, max: 0 },
-      releaseDate: { min: 0, max: 0 },
+      releaseDate: { min: "", max: "" },
       rating: { min: 0, max: 0 },
     });
   };
@@ -37,7 +43,8 @@ const FilterActions: React.FC = () => {
         Clear Filters
       </Button>
       <Button
-        type="submit"
+        type="button"
+        onClick={onApplyFilters}
         variant="default"
         size="sm"
         className="gap-1.5 shadow-sm"

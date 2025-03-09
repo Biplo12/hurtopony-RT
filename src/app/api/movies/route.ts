@@ -18,6 +18,46 @@ export async function GET(request: Request) {
     urlParams.set("sort_by", searchParams.get("sort_by") ?? "");
   }
 
+  // Advanced filters parameters
+  // Runtime filter
+  if (searchParams.get("runtime.gte")) {
+    urlParams.set("with_runtime.gte", searchParams.get("runtime.gte") ?? "");
+  }
+
+  if (searchParams.get("runtime.lte")) {
+    urlParams.set("with_runtime.lte", searchParams.get("runtime.lte") ?? "");
+  }
+
+  // Release date filter
+  if (searchParams.get("release_date.gte")) {
+    urlParams.set(
+      "primary_release_date.gte",
+      searchParams.get("release_date.gte") ?? "",
+    );
+  }
+
+  if (searchParams.get("release_date.lte")) {
+    urlParams.set(
+      "primary_release_date.lte",
+      searchParams.get("release_date.lte") ?? "",
+    );
+  }
+
+  // Rating filter
+  if (searchParams.get("vote_average.gte")) {
+    urlParams.set(
+      "vote_average.gte",
+      searchParams.get("vote_average.gte") ?? "",
+    );
+  }
+
+  if (searchParams.get("vote_average.lte")) {
+    urlParams.set(
+      "vote_average.lte",
+      searchParams.get("vote_average.lte") ?? "",
+    );
+  }
+
   const endpoint = query
     ? `${MOVIE_DB_BASE_URL}/search/movie`
     : `${MOVIE_DB_BASE_URL}/discover/movie`;

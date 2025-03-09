@@ -2,9 +2,9 @@ import { Calendar } from "lucide-react";
 import { moviesStore } from "~/store/movies-store";
 
 const ReleaseYearFilter: React.FC = () => {
-  const advancedFilters = moviesStore((state) => state.advancedFilters);
+  const { advancedFilters, setAdvancedFilters } = moviesStore((state) => state);
+
   const { releaseDate } = advancedFilters;
-  const { setAdvancedFilters } = moviesStore((state) => state);
 
   return (
     <div className="space-y-4">
@@ -18,21 +18,21 @@ const ReleaseYearFilter: React.FC = () => {
             htmlFor="minReleaseDate"
             className="block text-xs text-muted-foreground"
           >
-            Min
+            Min Year
           </label>
           <input
             id="minReleaseDate"
             type="number"
-            min="0"
-            max="300"
-            placeholder="Min"
-            value={releaseDate.min || ""}
+            min="1900"
+            max="2100"
+            placeholder="YYYY"
+            value={releaseDate.min}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
                 releaseDate: {
-                  ...releaseDate,
-                  min: e.target.value ? parseInt(e.target.value) : 0,
+                  ...advancedFilters.releaseDate,
+                  min: e.target.value,
                 },
               })
             }
@@ -44,21 +44,21 @@ const ReleaseYearFilter: React.FC = () => {
             htmlFor="maxReleaseDate"
             className="block text-xs text-muted-foreground"
           >
-            Max
+            Max Year
           </label>
           <input
-            id="maxRuntime"
+            id="maxReleaseDate"
             type="number"
-            min="0"
-            max="300"
-            placeholder="Max"
-            value={releaseDate.max || ""}
+            min="1900"
+            max="2100"
+            placeholder="YYYY"
+            value={releaseDate.max}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
                 releaseDate: {
-                  ...releaseDate,
-                  max: e.target.value ? parseInt(e.target.value) : 0,
+                  ...advancedFilters.releaseDate,
+                  max: e.target.value,
                 },
               })
             }
