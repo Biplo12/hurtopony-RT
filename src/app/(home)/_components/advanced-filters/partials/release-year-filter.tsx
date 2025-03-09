@@ -57,6 +57,8 @@ const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({
   const minYear = releaseDate.min ? extractYear(releaseDate.min) : "any";
   const maxYear = releaseDate.max ? extractYear(releaseDate.max) : "any";
 
+  console.log({ minYear, maxYear });
+
   const displayYearOptions = useMemo(() => {
     const options = [...yearOptions];
 
