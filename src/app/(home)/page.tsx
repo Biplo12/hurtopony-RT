@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import CategoryFilters from "./_components/category-filters";
 import SortOptions from "./_components/sort-options";
 import MoviesGrid from "./_components/movies-grid";
 import { useURLSynchronizer } from "~/hooks/useURLSynchronizer";
 import AdvancedFilters from "./_components/advanced-filters";
+import ShowFiltersButton from "./_components/advanced-filters/partials/show-filters-button";
 
 export default function HomePage() {
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const { isLoading: isParamsLoading } = useURLSynchronizer();
 
   return (
@@ -23,8 +26,13 @@ export default function HomePage() {
       <CategoryFilters isParamsLoading={isParamsLoading} />
       <div className="flex w-full justify-between">
         <SortOptions isParamsLoading={isParamsLoading} />
-        <AdvancedFilters />
+        <ShowFiltersButton
+          setShowAdvancedFilters={setShowAdvancedFilters}
+          showAdvancedFilters={showAdvancedFilters}
+        />
       </div>
+
+      {showAdvancedFilters && <AdvancedFilters />}
 
       <MoviesGrid isParamsLoading={isParamsLoading} />
     </main>
