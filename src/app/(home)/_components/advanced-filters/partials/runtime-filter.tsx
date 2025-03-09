@@ -1,18 +1,10 @@
 import { Clock } from "lucide-react";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-
+import type IFilters from "~/interfaces/IFilters";
 interface RuntimeFilterProps {
-  filters: {
-    runtime: { min: number; max: number };
-    releaseDate: { min: string; max: string };
-    rating: { min: number; max: number };
-  };
-  setFilters: (filters: {
-    runtime: { min: number; max: number };
-    releaseDate: { min: string; max: string };
-    rating: { min: number; max: number };
-  }) => void;
+  filters: IFilters;
+  setFilters: (filters: IFilters) => void;
 }
 
 const RuntimeFilter: React.FC<RuntimeFilterProps> = ({

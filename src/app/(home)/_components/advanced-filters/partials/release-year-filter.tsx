@@ -9,18 +9,11 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { useMemo, useEffect, useRef } from "react";
+import type IFilters from "~/interfaces/IFilters";
 
 interface ReleaseYearFilterProps {
-  filters: {
-    runtime: { min: number; max: number };
-    releaseDate: { min: string; max: string };
-    rating: { min: number; max: number };
-  };
-  setFilters: (filters: {
-    runtime: { min: number; max: number };
-    releaseDate: { min: string; max: string };
-    rating: { min: number; max: number };
-  }) => void;
+  filters: IFilters;
+  setFilters: (filters: IFilters) => void;
 }
 
 const ReleaseYearFilter: React.FC<ReleaseYearFilterProps> = ({

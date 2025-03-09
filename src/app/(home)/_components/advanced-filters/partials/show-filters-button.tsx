@@ -2,8 +2,7 @@ import { Button } from "~/components/ui/button";
 import { SlidersHorizontal } from "lucide-react";
 import { Skeleton } from "~/components/ui/skeleton";
 import { moviesStore } from "~/store/movies-store";
-import { useMemo } from "react";
-import { cn } from "~/lib/utils";
+import { hasActiveFilters } from "~/lib/utils";
 
 interface ShowFiltersButtonProps {
   setShowAdvancedFilters: (show: boolean) => void;
@@ -18,24 +17,14 @@ const ShowFiltersButton: React.FC<ShowFiltersButtonProps> = ({
 }) => {
   const advancedFilters = moviesStore((state) => state.advancedFilters);
 
-  const hasActiveFilters = useMemo(() => {
-    const { runtime, releaseDate, rating } = advancedFilters;
-    return (
-      runtime.min > 0 ||
-      runtime.max > 0 ||
-      releaseDate.min !== "" ||
-      releaseDate.max !== "" ||
-      rating.min > 0 ||
-      rating.max > 0
-    );
-  }, [advancedFilters]);
+  const activeFilters = hasActiveFilters(advancedFilters);
 
   if (isParamsLoading)
     return <Skeleton className="h-9 w-full rounded-md sm:w-36" />;
 
   return (
     <div className="relative">
-      {hasActiveFilters && (
+      {activeFilters && (
         <div className="absolute -right-1 -top-1 z-10 h-3 w-3 rounded-full bg-accent" />
       )}
       <Button

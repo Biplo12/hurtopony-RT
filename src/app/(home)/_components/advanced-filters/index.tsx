@@ -4,15 +4,12 @@ import RatingFilter from "./partials/rating-filter";
 import ReleaseYearFilter from "./partials/release-year-filter";
 import RuntimeFilter from "./partials/runtime-filter";
 import { moviesStore } from "~/store/movies-store";
+import type IFilters from "~/interfaces/IFilters";
 
 const AdvancedFilters: React.FC = () => {
   const { setAdvancedFilters, advancedFilters } = moviesStore((state) => state);
 
-  const [filters, setFilters] = useState<{
-    runtime: { min: number; max: number };
-    releaseDate: { min: string; max: string };
-    rating: { min: number; max: number };
-  }>({
+  const [filters, setFilters] = useState<IFilters>({
     runtime: { min: 0, max: 0 },
     releaseDate: { min: "", max: "" },
     rating: { min: 0, max: 0 },
@@ -50,7 +47,7 @@ const AdvancedFilters: React.FC = () => {
           <RatingFilter filters={filters} setFilters={setFilters} />
         </div>
 
-        <FilterActions filters={filters} setFilters={setFilters} />
+        <FilterActions setFilters={setFilters} />
       </form>
     </div>
   );
