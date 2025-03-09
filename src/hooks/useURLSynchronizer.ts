@@ -79,7 +79,8 @@ export const useURLSynchronizer = () => {
 
     setAdvancedFilters(updatedAdvancedFilters);
 
-    if (page) {
+    if (currentPageValue) {
+      console.log("currentPageValue", currentPageValue);
       setCurrentPage(currentPageValue);
     }
 
@@ -118,8 +119,6 @@ export const useURLSynchronizer = () => {
 
     if (pagination.currentPage > 1) {
       url.searchParams.set("page", pagination.currentPage.toString());
-    } else {
-      url.searchParams.delete("page");
     }
 
     if (advancedFilters.runtime.min > 0) {

@@ -45,11 +45,8 @@ interface MoviesStoreActions {
     sortBy: SortOption;
     sortDirection: "asc" | "desc";
   }) => void;
-  setPagination: (pagination: {
-    currentPage: number;
-    totalPages: number;
-    totalResults: number;
-  }) => void;
+  setTotalPages: (totalPages: number) => void;
+  setTotalResults: (totalResults: number) => void;
   setCurrentPage: (page: number) => void;
   setAdvancedFilters: (advancedFilters: {
     runtime: {
@@ -118,20 +115,18 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
     setSelectedCategoryId: (selectedCategoryId: number | null) => {
       updateURLParams({
         category: selectedCategoryId?.toString() ?? null,
-        page: null,
       });
       set((state) => ({
         selectedCategoryId,
         pagination: {
           ...state.pagination,
-          currentPage: 1,
+          currentPage: state.pagination.currentPage,
         },
       }));
     },
     setSearchQuery: (query: string) => {
       updateURLParams({
         q: query,
-        page: null,
       });
       set((state) => ({
         searchQuery: query,
@@ -148,22 +143,31 @@ export const moviesStore = create<MoviesStore & MoviesStoreActions>()(
       updateURLParams({
         sortBy: sortOptions.sortBy,
         sortDirection: sortOptions.sortDirection,
-        page: null,
       });
+
       set((state) => ({
         sortOptions,
         pagination: {
           ...state.pagination,
-          currentPage: 1,
+          currentPage: state.pagination.currentPage,
         },
       }));
     },
-    setPagination: (pagination: {
-      currentPage: number;
-      totalPages: number;
-      totalResults: number;
-    }) => {
-      set({ pagination });
+    setTotalPages: (totalPages: number) => {
+      set((state) => ({
+        pagination: {
+          ...state.pagination,
+          totalPages,
+        },
+      }));
+    },
+    setTotalResults: (totalResults: number) => {
+      set((state) => ({
+        pagination: {
+          ...state.pagination,
+          totalResults,
+        },
+      }));
     },
     setCurrentPage: (page: number) => {
       updateURLParams({

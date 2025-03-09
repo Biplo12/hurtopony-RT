@@ -36,7 +36,8 @@ interface GetMoviesParams {
 
 export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
   try {
-    const { setMovies, setPagination } = moviesStore.getState();
+    const { setMovies, setTotalPages, setTotalResults } =
+      moviesStore.getState();
 
     const urlParams = new URLSearchParams();
 
@@ -97,11 +98,8 @@ export const getMovies = async (params?: GetMoviesParams): Promise<Movie[]> => {
       throw new Error("Failed to fetch movies");
     }
 
-    setPagination({
-      currentPage: response.data.page,
-      totalPages: response.data.total_pages,
-      totalResults: response.data.total_results,
-    });
+    setTotalPages(response.data.total_pages);
+    setTotalResults(response.data.total_results);
 
     setMovies(response.data.results);
 
